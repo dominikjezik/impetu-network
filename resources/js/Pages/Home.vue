@@ -5,7 +5,7 @@
             <div class="timeline">
                 <publish-new-post />
                 <div v-for="post in posts">
-                    <published-post :post="post" />
+                    <published-post :post="post" :display-subpage-name="true" />
                 </div>
             </div>
             <section class="meta">
