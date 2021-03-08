@@ -12,7 +12,7 @@ export default {
     },
     methods: {
         displayCreatePostForm() {
-            if(this.subPage !== null)
+            if(this.subpageName !== undefined)
                 this.$inertia.get(`/r/${this.subpageName}/publish`)
             else
                 this.$inertia.get(`/publish`)
