@@ -62,6 +62,9 @@ Route::prefix('/r/{subPage}')->group( function() {
     // Publish new post
     Route::post('/posts', [PostsController::class, 'store'])->middleware('member');
 
+    // Show post
+    Route::get('/{post}', [PostsController::class, 'show']);
+
     // Up and Down vote post
     Route::post('/{post}/upvote', [VotesController::class, 'storeUpvote'])->middleware('auth');
     Route::post('/{post}/downvote', [VotesController::class, 'storeDownvote'])->middleware('auth');
