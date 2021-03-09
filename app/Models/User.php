@@ -61,6 +61,16 @@ class User extends Authenticatable
     ];
 
     /**
+     * Get the default profile photo URL if no profile photo has been uploaded.
+     *
+     * @return string
+     */
+    protected function defaultProfilePhotoUrl()
+    {
+        return 'https://ui-avatars.com/api/?name='.urlencode($this->name).'&color=FFFFFF&background=3D94FF';
+    }
+
+    /**
      * Relationship returns User Sub pages.
      *
      * @return BelongsToMany

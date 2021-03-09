@@ -1,7 +1,7 @@
 <template>
     <div class="content">
         <div class="post-header">
-            <img class="profile-photo" src="/img/profile1.jpg" alt="">
+            <img class="profile-photo" :src="post.post_author.profile_photo_url" alt="">
             <span class="subpage-name" v-if="displaySubpageName">
                     <inertia-link :href="`/r/${post.sub_page_name}`">
                         {{ post.sub_page_name }}

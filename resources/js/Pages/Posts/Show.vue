@@ -8,7 +8,7 @@
                     <section class="comment-section">
                         <form class="add-new">
                             <div class="row">
-                                <img class="profile-img" src="/img/profile1.jpg" alt="">
+                                <img class="profile-img" :src="post.post_author.profile_photo_url" alt="">
 
                                 <div class="error-msg" v-if="$page.props.errors.body">{{ $page.props.errors.body }}</div>
                                 <textarea name="body" id=""
