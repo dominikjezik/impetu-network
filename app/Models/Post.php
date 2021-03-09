@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Carbon;
 
 class Post extends Model
@@ -13,7 +14,7 @@ class Post extends Model
     use HasFactory;
 
     protected $guarded = [];
-    protected $appends = ['post_author', 'sub_page_name', 'score', 'voted_by_user'];
+    protected $appends = ['post_author', 'sub_page_name', 'score', 'voted_by_user', 'comments_list'];
 
     /**
      * Relationship to author.
@@ -104,6 +105,20 @@ class Post extends Model
                 "upvote" => $upvote
             ]);
         }
+    }
+
+
+    /**
+     * @return MorphMany
+     */
+    public function comments(): MorphMany
+    {
+        return $this->morphMany(Comment::class, 'commentable');
+    }
+
+    public function getCommentsListAttribute()
+    {
+        return $this->comments()->orderBy('created_at', 'desc')->get();
     }
 
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\SubPageJoinsController;
@@ -68,6 +69,12 @@ Route::prefix('/r/{subPage}')->group( function() {
     // Up and Down vote post
     Route::post('/{post}/upvote', [VotesController::class, 'storeUpvote'])->middleware('auth');
     Route::post('/{post}/downvote', [VotesController::class, 'storeDownvote'])->middleware('auth');
+
+    // Publish comment to post
+    Route::post('/{post}/comments', [CommentsController::class, 'store'])->middleware('member');
+
+    // Publish comment to comment
+    Route::post('/{post}/comments/{comment?}', [CommentsController::class, 'store'])->middleware('member');
 
 });
 

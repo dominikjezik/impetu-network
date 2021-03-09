@@ -21,6 +21,9 @@
                                 <button type="submit" class="btn-primary-small" @click.prevent="submit">Comment</button>
                             </div>
                         </form>
+                        <div class="comments">
+                            <comments-list :comments="comments" />
+                        </div>
                     </section>
                 </div>
             </div>
@@ -47,8 +50,12 @@ import MasterLayout from "@/Layouts/MasterLayout";
 import PublishedPost from "@/Components/PublishedPost";
 import VotingButtons from "@/Components/VotingButtons";
 import BasePost from "@/Components/BasePost";
+import CommentsList from "@/Components/CommentsList";
+import axios from "axios";
+
 export default {
     components: {
+        CommentsList,
         BasePost,
         VotingButtons,
         PublishedPost,
@@ -59,6 +66,7 @@ export default {
     },
     data() {
         return {
+            comments: this.post.comments_list,
             form: {
                 body: ""
             }
@@ -67,6 +75,15 @@ export default {
     methods: {
         reset(field) {
             delete this.$page.props.errors[field]
+        },
+        submit() {
+            axios.post(`/r/${this.post.sub_page_name}/${this.post.id}/comments`, this.form)
+                .then(res => this.addComment(res))
+                .catch(err => console.log(err))
+        },
+        addComment(comment) {
+            this.form.body = ""
+            this.comments.unshift(comment.data)
         }
     }
 }
