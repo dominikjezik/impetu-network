@@ -49,7 +49,6 @@ class SubPagesController extends Controller
      */
     public function show(SubPage $subPage)
     {
-        $subPage->latestPosts->each(fn($post) => $post->author);
         return Inertia::render('SubPage/Show', ['subpage' => $subPage]);
     }
 

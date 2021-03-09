@@ -10,7 +10,7 @@
                 </span>
             <span class="author">
                     Posted by
-                    <a href="#">{{ post.author.name }}</a>
+                    <a href="#">{{ post.post_author.name }}</a>
                     <span class="dot">•</span>
                 </span>
             <span class="created_at">{{ post.created_at }}</span>

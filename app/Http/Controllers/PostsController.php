@@ -63,7 +63,6 @@ class PostsController extends Controller
     public function show(SubPage $subPage, Post $post)
     {
         abort_if($post->subPage->isNot($subPage), 404);
-        $post->author;
 
         return Inertia::render('Posts/Show', [
             'post' => $post

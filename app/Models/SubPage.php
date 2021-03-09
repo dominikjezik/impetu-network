@@ -20,7 +20,7 @@ class SubPage extends Model
      *
      * @var string[]
      */
-    protected $appends = ['is_member', 'members_count'];
+    protected $appends = ['is_member', 'members_count', 'latest_posts'];
 
 
     /**
@@ -48,9 +48,9 @@ class SubPage extends Model
      *
      * @return HasMany
      */
-    public function latestPosts()
+    public function getLatestPostsAttribute()
     {
-        return $this->posts()->orderBy("created_at", 'DESC');
+        return $this->posts()->orderBy("created_at", 'DESC')->get();
     }
 
 

@@ -13,9 +13,7 @@ class Post extends Model
     use HasFactory;
 
     protected $guarded = [];
-
-    protected $appends = ['sub_page_name', 'score', 'voted_by_user'];
-
+    protected $appends = ['post_author', 'sub_page_name', 'score', 'voted_by_user'];
 
     /**
      * Relationship to author.
@@ -25,6 +23,11 @@ class Post extends Model
     public function author(): BelongsTo
     {
         return $this->belongsTo(User::class, "user_id");
+    }
+
+    public function getPostAuthorAttribute()
+    {
+        return $this->author()->select(['id', 'name'])->first();
     }
 
     public function getCreatedAtAttribute($date)
