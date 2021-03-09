@@ -1,0 +1,52 @@
+// Buttons
+.btn-primary {
+    background: $primary-color;
+    color: #fff;
+    border: 2px solid $primary-color;
+    font-weight: bold;
+    font-size: 1.15rem;
+    padding: .4rem 2rem;
+    border-radius: .5rem;
+    cursor: pointer;
+
+}
+
+.btn-outline {
+    @extend .btn-primary;
+    background: #fff;
+    color: $primary-color;
+}
+
+.btn-primary-small {
+    @extend .btn-primary;
+    font-size: .9rem;
+    padding: .3rem 1.5rem;
+}
+
+
+// Form stuff
+.input {
+    outline: none;
+    border: 1px solid #b3b3b3;
+    border-radius: .5rem;
+    padding: .5rem .75rem;
+
+    &:focus {
+        caret-color: $primary-color;
+        border: 1px solid $primary-color;
+    }
+}
+
+.input-error {
+    border: 1px solid #9f0000;
+}
+
+.error-msg {
+    font-size: .8rem;
+    color: #9f0000;
+    margin-bottom: .5rem;
+}
+
+.select-box{
+    @extend .input;
+}

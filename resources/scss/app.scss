@@ -1,127 +1,17 @@
-//@import 'tailwindcss/base';
-//@import 'tailwindcss/components';
-//@import 'tailwindcss/utilities';
-
 @import "normalize";
 
+@import "bootstrap";
+@import "components";
+@import "layout";
 
-$primary-color: #1e9fff;
-$positive-color: #3ab335;
-$negative-color: #cf3131;
-
-html {
-    font-family: 'Nunito', sans-serif;
-    box-sizing: border-box;
-}
-
-*,
-*::before,
-*::after {
-    font-family: inherit;
-    box-sizing: inherit;
-}
-
-body {
-    //background: #e0e0e0;
-    background: #fff;
-}
-
-p {
-    line-height: 1.5;
-}
-
-.container {
-    padding-top: 5rem;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-
-    .meta {
-        //margin-top: 4.5rem;
-        margin-right: 2rem;
-        width: 20rem;
-
-        .meta-item {
-            border: 1px solid #cfcfcf;
-            width: 100%;
-
-            .header {
-                font-weight: bold;
-                border-top-right-radius: 0.5rem;
-                border-top-left-radius: 0.5rem;
-                padding: .8rem;
-                background: $primary-color;
-                color: #fff;
-            }
-
-            .content {
-                padding: .8rem;
-            }
-        }
-    }
-
-    .timeline {
-        flex: 1;
-    }
-}
-
-.btn-primary {
-    background: $primary-color;
-    color: #fff;
-    border: 2px solid $primary-color;
-    font-weight: bold;
-    font-size: 1.15rem;
-    padding: .4rem 2rem;
-    border-radius: .5rem;
-    cursor: pointer;
-
-}
-
-.btn-outline {
-    @extend .btn-primary;
-    background: #fff;
-    color: $primary-color;
-}
-
-.btn-primary-small {
-    @extend .btn-primary;
-    font-size: .9rem;
-    padding: .3rem 1.5rem;
-}
-
-.input {
-    outline: none;
-    border: 1px solid #b3b3b3;
-    border-radius: .5rem;
-    padding: .5rem .75rem;
-
-    &:focus {
-        caret-color: $primary-color;
-        border: 1px solid $primary-color;
-    }
-}
-
-.input-error {
-    border: 1px solid #9f0000;
-}
-
-.error-msg {
-    font-size: .8rem;
-    color: #9f0000;
-    margin-bottom: .5rem;
-}
-
-.select-box{
-    @extend .input;
-}
-
-
+// Basic post container
 .post-container {
     background: #fff;
     border-radius: .5rem;
     border: 1px solid #cfcfcf;
 }
 
+// Create new post form
 .publish-post-container {
     padding: 1rem;
     margin-bottom: .7rem;
@@ -146,6 +36,7 @@ p {
     }
 }
 
+// Publish new post "placeholder"
 .published-post-new {
     @extend .post-container;
     display: flex;
@@ -163,6 +54,7 @@ p {
     }
 }
 
+// Publish post from timeline
 .published-post {
     @extend .post-container;
     display: block;
@@ -304,6 +196,7 @@ p {
     }
 }
 
+// Show post page
 .show-post.published-post {
     &:hover {
         cursor: default;
@@ -311,58 +204,7 @@ p {
     }
 }
 
-
-
-/* LAYOUT */
-.main-header {
-    position: fixed;
-    z-index: 5;
-    padding: 1rem;
-    background: #fff;
-    width: 100%;
-    box-shadow: 0px -12px 18px 0px rgba(0,0,0,0.6);
-
-
-}
-
-.timeline {
-    max-width: 800px;
-}
-
-.fake-nav {
-    width: 20rem;
-}
-
-.main-navigation {
-    top: 0;
-    left: 0;
-    position: fixed;
-    padding-top: 3rem;
-    width: 15rem;
-    height: 100%;
-
-    ul {
-        list-style: none;
-        padding: 1rem;
-
-        a {
-            border-radius: 9999px;
-            padding: 1rem;
-            display: inline-block;
-            color: #000;
-            text-decoration: none;
-            width: 100%;
-        }
-
-        a.selected,
-        a:hover {
-            background: lighten($primary-color, 38);
-            color: $primary-color;
-        }
-    }
-}
-
-
+// Show Sub Page
 .subpage-hero {
     background: #fff;
     width: 100%;
@@ -444,7 +286,7 @@ p {
     }
 }
 
-
+// Create post page
 .container-add-post {
     justify-content: start;
 

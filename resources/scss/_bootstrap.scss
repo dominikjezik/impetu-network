@@ -1,0 +1,23 @@
+$primary-color: #1e9fff;
+$positive-color: #3ab335;
+$negative-color: #cf3131;
+
+html {
+    font-family: 'Nunito', sans-serif;
+    box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+    font-family: inherit;
+    box-sizing: inherit;
+}
+
+body {
+    background: #fff;
+}
+
+p {
+    line-height: 1.5;
+}
