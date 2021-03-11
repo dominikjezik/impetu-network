@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Comment;
 use App\Models\Post;
 use App\Models\SubPage;
 use App\Models\User;
@@ -85,7 +86,7 @@ class VotesTest extends TestCase
     }
 
     /** @test */
-    public function an_user_can_change_upvote_to_downvote()
+    public function an_user_can_change_upvote_to_downvote_a_post()
     {
         $this->withoutExceptionHandling();
 
@@ -104,7 +105,7 @@ class VotesTest extends TestCase
     }
 
     /** @test */
-    public function an_user_can_change_downvote_to_upvote()
+    public function an_user_can_change_downvote_to_upvote_a_post()
     {
         $this->withoutExceptionHandling();
 
@@ -122,5 +123,118 @@ class VotesTest extends TestCase
         $this->assertEquals(1, $post->score());
     }
 
+    /** @test */
+    public function an_user_can_up_vote_a_comment()
+    {
+        $this->withoutExceptionHandling();
+
+        $user = User::factory()->create();
+        $subPage = SubPage::factory()->create();
+        $post = Post::factory()->create();
+        $comment = Comment::factory()->create();
+
+        $this->actingAs($user);
+
+        $this->post("/r/$subPage->name/$post->id/comments/$comment->id/upvote");
+
+        $this->assertEquals(1, $comment->score());
+    }
+
+    /** @test */
+    public function an_user_can_reset_up_vote_a_comment()
+    {
+        $this->withoutExceptionHandling();
+
+        $user = User::factory()->create();
+        $subPage = SubPage::factory()->create();
+        $post = Post::factory()->create();
+        $comment = Comment::factory()->create();
+
+        $this->actingAs($user);
+
+        $this->post("/r/$subPage->name/$post->id/comments/$comment->id/upvote");
+
+        $this->assertEquals(1, $comment->score());
+
+        $this->post("/r/$subPage->name/$post->id/comments/$comment->id/upvote");
+        $this->assertEquals(0, $comment->score());
+    }
+
+    /** @test */
+    public function an_user_can_down_vote_a_comment()
+    {
+        $this->withoutExceptionHandling();
+
+        $user = User::factory()->create();
+        $subPage = SubPage::factory()->create();
+        $post = Post::factory()->create();
+        $comment = Comment::factory()->create();
+
+        $this->actingAs($user);
+
+        $this->post("/r/$subPage->name/$post->id/comments/$comment->id/downvote");
+
+        $this->assertEquals(-1, $comment->score());
+    }
+
+    /** @test */
+    public function an_user_can_reset_down_vote_a_comment()
+    {
+        $this->withoutExceptionHandling();
+
+        $user = User::factory()->create();
+        $subPage = SubPage::factory()->create();
+        $post = Post::factory()->create();
+        $comment = Comment::factory()->create();
+
+        $this->actingAs($user);
+
+        $this->post("/r/$subPage->name/$post->id/comments/$comment->id/downvote");
+
+        $this->assertEquals(-1, $comment->score());
+
+        $this->post("/r/$subPage->name/$post->id/comments/$comment->id/downvote");
+        $this->assertEquals(0, $comment->score());
+    }
+
+    /** @test */
+    public function an_user_can_change_upvote_to_downvote_a_comment()
+    {
+        $this->withoutExceptionHandling();
+
+        $user = User::factory()->create();
+        $subPage = SubPage::factory()->create();
+        $post = Post::factory()->create();
+        $comment = Comment::factory()->create();
+
+        $this->actingAs($user);
+
+        $this->post("/r/$subPage->name/$post->id/comments/$comment->id/upvote");
+
+        $this->assertEquals(1, $comment->score());
+
+        $this->post("/r/$subPage->name/$post->id/comments/$comment->id/downvote");
+        $this->assertEquals(-1, $comment->score());
+    }
+
+    /** @test */
+    public function an_user_can_change_downvote_to_upvote_a_comment()
+    {
+        $this->withoutExceptionHandling();
+
+        $user = User::factory()->create();
+        $subPage = SubPage::factory()->create();
+        $post = Post::factory()->create();
+        $comment = Comment::factory()->create();
+
+        $this->actingAs($user);
+
+        $this->post("/r/$subPage->name/$post->id/comments/$comment->id/downvote");
+
+        $this->assertEquals(-1, $comment->score());
+
+        $this->post("/r/$subPage->name/$post->id/comments/$comment->id/upvote");
+        $this->assertEquals(1, $comment->score());
+    }
 
 }

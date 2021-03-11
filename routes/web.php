@@ -49,14 +49,18 @@ Route::prefix('/r/{subPage}')->group( function() {
     Route::get('/{post}', [PostsController::class, 'show']);
 
     // Up and Down vote post
-    Route::post('/{post}/upvote', [VotesController::class, 'storeUpvote'])->middleware('auth');
-    Route::post('/{post}/downvote', [VotesController::class, 'storeDownvote'])->middleware('auth');
+    Route::post('/{post}/upvote', [VotesController::class, 'storePostUpvote'])->middleware('auth');
+    Route::post('/{post}/downvote', [VotesController::class, 'storePostDownvote'])->middleware('auth');
 
     // Publish comment to post
     Route::post('/{post}/comments', [CommentsController::class, 'store'])->middleware('member');
 
     // Publish comment to comment
     Route::post('/{post}/comments/{comment}', [CommentsController::class, 'store'])->middleware('member');
+
+    // Up and Down vote comment
+    Route::post('/{post}/comments/{comment}/upvote', [VotesController::class, 'storeCommentUpvote'])->middleware('auth');
+    Route::post('/{post}/comments/{comment}/downvote', [VotesController::class, 'storeCommentDownvote'])->middleware('auth');
 
 });
 

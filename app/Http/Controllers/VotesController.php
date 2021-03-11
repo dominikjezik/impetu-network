@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use App\Models\Post;
 use App\Models\SubPage;
 use Illuminate\Contracts\Foundation\Application;
@@ -18,7 +19,7 @@ class VotesController extends Controller
      * @param Post $post
      * @return Application|ResponseFactory|Response
      */
-    public function storeUpvote(SubPage $subPage, Post $post)
+    public function storePostUpvote(SubPage $subPage, Post $post)
     {
         $post->upvote(auth()->user());
         return response("Upvoted!", 201);
@@ -28,10 +29,40 @@ class VotesController extends Controller
     /**
      * @param SubPage $subPage
      * @param Post $post
+     * @return Application|ResponseFactory|Response
      */
-    public function storeDownvote(SubPage $subPage, Post $post)
+    public function storePostDownvote(SubPage $subPage, Post $post)
     {
         $post->downvote(auth()->user());
+        return response("Downvoted!", 201);
     }
+
+
+    /**
+     * @param SubPage $subPage
+     * @param Post $post
+     * @param Comment $comment
+     * @return Application|ResponseFactory|Response
+     */
+    public function storeCommentUpvote(SubPage $subPage, Post $post, Comment $comment)
+    {
+        $comment->upvote(auth()->user());
+        return response("Upvoted!", 201);
+    }
+
+
+    /**
+     * @param SubPage $subPage
+     * @param Post $post
+     * @param Comment $comment
+     * @return Application|ResponseFactory|Response
+     */
+    public function storeCommentDownvote(SubPage $subPage, Post $post, Comment $comment)
+    {
+        $comment->downvote(auth()->user());
+        return response("Downvoted!", 201);
+    }
+
+
 
 }

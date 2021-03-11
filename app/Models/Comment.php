@@ -8,10 +8,10 @@ use Illuminate\Support\Carbon;
 
 class Comment extends Model
 {
-    use HasFactory;
+    use HasFactory, Voteable;
 
     protected $guarded = [];
-    protected $appends = ['comments_list', 'comment_author'];
+    protected $appends = ['comments_list', 'comment_author', 'score', 'voted_by_user'];
 
     public function getCreatedAtAttribute($date)
     {

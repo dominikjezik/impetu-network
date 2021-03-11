@@ -7,7 +7,7 @@
         </div>
         <p class="comment-body">{{ comment.body }}</p>
         <div class="options">
-            <voting-buttons :post="{score: -1, voted_by_user: null}" />
+            <voting-buttons :voteable="comment" :endpoint="endpoint(comment)" />
             <button @click.prevent="switchIsDisplayedAddNewComment(comment)" class="comment-btn">
                 <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                      viewBox="0 0 60 60" style="enable-background:new 0 0 60 60;" xml:space="preserve">

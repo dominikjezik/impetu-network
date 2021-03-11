@@ -22,7 +22,7 @@
         </div>
     </div>
     <div class="post-footer">
-        <voting-buttons :post="post" />
+        <voting-buttons :voteable="post" :endpoint="`/r/${post.sub_page_name}/${post.id}`" />
     </div>
 </template>
 
