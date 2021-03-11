@@ -50,3 +50,46 @@
 .select-box{
     @extend .input;
 }
+
+
+// Voting buttons
+.voting-buttons {
+    display: flex;
+    align-items: center;
+
+    .btn-vote {
+        outline: none;
+        background: transparent;
+        border: none;
+        padding: .5rem .5rem .3rem;
+        cursor: pointer;
+        border-radius: .5rem;
+        svg {
+            width: 1.2rem;
+            height: 1.2rem;
+
+            path {
+                fill: #515151
+            }
+        }
+
+        &:hover {
+            background: #cfcfcf;
+        }
+    }
+
+    .btn-vote-up:hover path,
+    .btn-vote-up-clicked svg path{
+        fill: $positive-color
+    }
+
+    .btn-vote-down:hover path,
+    .btn-vote-down-clicked svg path{
+        fill: $negative-color;
+    }
+
+    .score {
+        font-weight: bold;
+        margin: 0 1rem;
+    }
+}

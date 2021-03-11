@@ -7,7 +7,6 @@ use App\Http\Controllers\SubPageJoinsController;
 use App\Http\Controllers\SubPageLeavesController;
 use App\Http\Controllers\SubPagesController;
 use App\Http\Controllers\VotesController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -22,26 +21,9 @@ use Inertia\Inertia;
 |
 */
 
-//Route::get('/', function () {
-//    return Inertia::render('Welcome', [
-//        'canLogin' => Route::has('login'),
-//        'canRegister' => Route::has('register'),
-//        'laravelVersion' => Application::VERSION,
-//        'phpVersion' => PHP_VERSION,
-//    ]);
-//});
-
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->name('dashboard');
-
-/*
- * Routes
- *
- * /r/{subPage}/{id}                zobrazenie konkrétneho príspevku v Sub page
- * /r/{subPage}/posts/create        formulár vytvorenie príspevku
- *
- */
 
 Route::get('/', [HomeController::class, 'index']);
 
@@ -74,7 +56,7 @@ Route::prefix('/r/{subPage}')->group( function() {
     Route::post('/{post}/comments', [CommentsController::class, 'store'])->middleware('member');
 
     // Publish comment to comment
-    Route::post('/{post}/comments/{comment?}', [CommentsController::class, 'store'])->middleware('member');
+    Route::post('/{post}/comments/{comment}', [CommentsController::class, 'store'])->middleware('member');
 
 });
 
