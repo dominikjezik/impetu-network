@@ -13,16 +13,6 @@ use Inertia\Response;
 class PostsController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
      * Show the form for creating a new post.
      *
      * @return Response
@@ -47,9 +37,11 @@ class PostsController extends Controller
      */
     public function store(StorePostRequest $request, SubPage $subPage)
     {
-        $subPage->posts()->create(array_merge($request->validated(), [
-            'user_id' => auth()->id()
-        ]));
+        $validated = $request->validated();
+        $validated["body"] = clean($validated["body"]);
+        $validated['user_id'] = auth()->id();
+
+        $subPage->posts()->create($validated);
 
         return redirect($subPage->path());
     }

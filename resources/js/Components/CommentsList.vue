@@ -5,7 +5,7 @@
             <a href="#" class="username">{{ comment.comment_author.name }}</a>
             <span class="time">{{ comment.created_at }}</span>
         </div>
-        <p class="comment-body">{{ comment.body }}</p>
+        <div class="comment-body" v-html="comment.body"></div>
         <div class="options">
             <voting-buttons :voteable="comment" :endpoint="endpoint(comment)" />
             <button @click.prevent="switchIsDisplayedAddNewComment(comment)" class="comment-btn">

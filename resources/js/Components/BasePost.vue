@@ -17,9 +17,7 @@
         </div>
 
         <h3 class="title">{{ post.title }}</h3>
-        <div class="body">
-            {{ post.body }}
-        </div>
+        <div class="body" v-html="post.body"></div>
     </div>
     <div class="post-footer">
         <voting-buttons :voteable="post" :endpoint="`/r/${post.sub_page_name}/${post.id}`" />

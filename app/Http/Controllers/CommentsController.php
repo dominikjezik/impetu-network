@@ -7,8 +7,6 @@ use App\Models\Comment;
 use App\Models\Post;
 use App\Models\SubPage;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 
 class CommentsController extends Controller
 {
@@ -25,7 +23,7 @@ class CommentsController extends Controller
     {
         $newCommentBody = [
             'user_id' => auth()->id(),
-            'body' => $request->get('body')
+            'body' => clean($request->get('body'))
         ];
 
         if(empty($comment->id)) {
