@@ -14,11 +14,14 @@
                        @keydown="reset('title')" :class="{ 'input-error' : $page.props.errors.title  }">
 
                 <div class="error-msg" v-if="$page.props.errors.body">{{ $page.props.errors.body }}</div>
-                <textarea name="body" id=""
-                      cols="30" rows="10" class="input" placeholder="Body"
-                      v-model="form.body" @keydown="reset('body')"
-                      :class="{ 'input-error' : $page.props.errors.body  }"
-                ></textarea>
+<!--                <textarea name="body" id=""-->
+<!--                      cols="30" rows="10" class="input" placeholder="Body"-->
+<!--                      v-model="form.body" @keydown="reset('body')"-->
+<!--                      :class="{ 'input-error' : $page.props.errors.body  }"-->
+<!--                ></textarea>-->
+                <div class="quill-container-post">
+                    <quill-editor ref="body" />
+                </div>
 
                 <button type="submit" class="btn-primary" @click.prevent="submit">Publish</button>
             </form>
@@ -28,9 +31,13 @@
 
 <script>
 import MasterLayout from "@/Layouts/MasterLayout";
+import QuillEditor from "@/Components/QuillEditor";
 
 export default {
-    components: { MasterLayout },
+    components: {
+        MasterLayout,
+        QuillEditor
+    },
     props: {
         subpage: Object,
         list_of_communities: Array
@@ -46,6 +53,7 @@ export default {
     },
     methods: {
         submit() {
+            this.form.body = this.$refs.body.quill.root.innerHTML
             this.$inertia.post(`/r/${this.community}/posts`, this.form)
         },
         reset(field) {

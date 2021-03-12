@@ -4,11 +4,10 @@
             <img class="profile-img" :src="authUser.profile_photo_url" alt="">
 
             <div class="error-msg" v-if="$page.props.errors.body">{{ $page.props.errors.body }}</div>
-            <textarea name="body" id=""
-                      cols="30" rows="5" class="input body" placeholder="Body"
-                      :class="{ 'input-error' : $page.props.errors.body  }"
-                      v-model="form.body" @keydown="reset('body')"
-            ></textarea>
+            <div class="quill-container-comment">
+                <quill-editor ref="body" :specialId="specialId" />
+            </div>
+
         </div>
         <div class="row row-button">
             <button type="submit" class="btn-primary-small" @click.prevent="submit">Comment</button>
@@ -17,9 +16,13 @@
 </template>
 
 <script>
+import QuillEditor from "@/Components/QuillEditor";
 import axios from "axios";
 
 export default {
+    components: {
+        QuillEditor
+    },
     props: {
         endpoint: String,
         originalComments: Array,
@@ -35,6 +38,9 @@ export default {
     computed: {
         authUser() {
             return this.$page.props.authUser
+        },
+        specialId() {
+            return this.commentedComment === undefined ? 0 : this.commentedComment.id
         }
     },
     methods: {
@@ -42,11 +48,13 @@ export default {
             delete this.$page.props.errors[field]
         },
         submit() {
+            this.form.body = this.$refs.body.quill.root.innerHTML
             axios.post(this.endpoint, this.form)
                 .then(res => this.addComment(res))
                 .catch(err => console.log(err))
         },
         addComment(comment) {
+            this.$refs.body.clear()
             this.form.body = ""
             this.$emit('newComment', {
                 newComment: comment.data,
