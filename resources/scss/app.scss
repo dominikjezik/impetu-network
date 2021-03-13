@@ -73,7 +73,55 @@
         align-items: center;
 
         .item {
+            margin-left: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            outline: none;
+            background: transparent;
+            border: none;
+            padding: .5rem .75rem;
+            cursor: pointer;
+            border-radius: .5rem;
+            svg {
+                width: 1.2rem;
+                height: 1.2rem;
+                margin-right: .5rem;
 
+                path {
+                    fill: #515151
+                }
+            }
+
+            &:hover {
+                background: #cfcfcf;
+            }
+
+            span {
+                font-weight: bold;
+                color: #515151;
+            }
+
+            &:disabled {
+                &:hover {
+                    background: transparent;
+                    cursor: default;
+                }
+            }
+        }
+        .item-active {
+            svg path {
+                fill: $primary-color;
+            }
+            span {
+                color: $primary-color;
+            }
+        }
+        .share-btn {
+            svg {
+                width: 1.3rem;
+                height: 1.3rem;
+            }
         }
 
     }

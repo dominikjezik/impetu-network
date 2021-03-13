@@ -14,7 +14,7 @@ class Post extends Model
     use HasFactory, Voteable;
 
     protected $guarded = [];
-    protected $appends = ['post_author', 'sub_page_name', 'score', 'voted_by_user', 'comments_list'];
+    protected $appends = ['post_author', 'sub_page_name', 'score', 'voted_by_user', 'comment_count', 'comments_list'];
 
     /**
      * Relationship to author.
@@ -57,6 +57,11 @@ class Post extends Model
     public function getCommentsListAttribute()
     {
         return $this->comments()->orderBy('created_at', 'desc')->get();
+    }
+
+    public function getCommentCountAttribute()
+    {
+        return $this->comments()->count(); // Vráti len "prvé" komentáre nie vnorené
     }
 
 }
