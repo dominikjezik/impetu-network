@@ -22,7 +22,7 @@ class CommentsTest extends TestCase
 
         $user = User::factory()->create();
         $subPage = SubPage::factory()->create();
-        $post = Post::factory()->create();
+        $post = Post::factory()->create(['sub_page_id' => $subPage->id]);
 
         $this->actingAs($user);
 
@@ -42,7 +42,7 @@ class CommentsTest extends TestCase
 
         $user = User::factory()->create();
         $subPage = SubPage::factory()->create();
-        $post = Post::factory()->create();
+        $post = Post::factory()->create(['sub_page_id' => $subPage->id]);
 
         $this->actingAs($user);
 

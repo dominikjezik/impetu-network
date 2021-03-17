@@ -21,12 +21,11 @@ class VotesTest extends TestCase
         $this->withoutExceptionHandling();
 
         $user = User::factory()->create();
-        $subPage = SubPage::factory()->create();
         $post = Post::factory()->create();
 
         $this->actingAs($user);
 
-        $this->post("/r/$subPage->name/$post->id/upvote");
+        $this->post("/r/{$post->subPage->name}/$post->id/upvote");
 
         $this->assertEquals(1, $post->score());
     }
@@ -37,16 +36,15 @@ class VotesTest extends TestCase
         $this->withoutExceptionHandling();
 
         $user = User::factory()->create();
-        $subPage = SubPage::factory()->create();
         $post = Post::factory()->create();
 
         $this->actingAs($user);
 
-        $this->post("/r/$subPage->name/$post->id/upvote");
+        $this->post("/r/{$post->subPage->name}/$post->id/upvote");
 
         $this->assertEquals(1, $post->score());
 
-        $this->post("/r/$subPage->name/$post->id/upvote");
+        $this->post("/r/{$post->subPage->name}/$post->id/upvote");
         $this->assertEquals(0, $post->score());
     }
 
@@ -56,12 +54,11 @@ class VotesTest extends TestCase
         $this->withoutExceptionHandling();
 
         $user = User::factory()->create();
-        $subPage = SubPage::factory()->create();
         $post = Post::factory()->create();
 
         $this->actingAs($user);
 
-        $this->post("/r/$subPage->name/$post->id/downvote");
+        $this->post("/r/{$post->subPage->name}/$post->id/downvote");
 
         $this->assertEquals(-1, $post->score());
     }
@@ -91,16 +88,15 @@ class VotesTest extends TestCase
         $this->withoutExceptionHandling();
 
         $user = User::factory()->create();
-        $subPage = SubPage::factory()->create();
         $post = Post::factory()->create();
 
         $this->actingAs($user);
 
-        $this->post("/r/$subPage->name/$post->id/upvote");
+        $this->post("/r/{$post->subPage->name}/$post->id/upvote");
 
         $this->assertEquals(1, $post->score());
 
-        $this->post("/r/$subPage->name/$post->id/downvote");
+        $this->post("/r/{$post->subPage->name}/$post->id/downvote");
         $this->assertEquals(-1, $post->score());
     }
 
@@ -129,13 +125,11 @@ class VotesTest extends TestCase
         $this->withoutExceptionHandling();
 
         $user = User::factory()->create();
-        $subPage = SubPage::factory()->create();
-        $post = Post::factory()->create();
         $comment = Comment::factory()->create();
 
         $this->actingAs($user);
 
-        $this->post("/r/$subPage->name/$post->id/comments/$comment->id/upvote");
+        $this->post("/r/{$comment->commentable->subPage->name}/{$comment->commentable->id}/comments/$comment->id/upvote");
 
         $this->assertEquals(1, $comment->score());
     }
@@ -146,17 +140,15 @@ class VotesTest extends TestCase
         $this->withoutExceptionHandling();
 
         $user = User::factory()->create();
-        $subPage = SubPage::factory()->create();
-        $post = Post::factory()->create();
         $comment = Comment::factory()->create();
 
         $this->actingAs($user);
 
-        $this->post("/r/$subPage->name/$post->id/comments/$comment->id/upvote");
+        $this->post("/r/{$comment->commentable->subPage->name}/{$comment->commentable->id}/comments/$comment->id/upvote");
 
         $this->assertEquals(1, $comment->score());
 
-        $this->post("/r/$subPage->name/$post->id/comments/$comment->id/upvote");
+        $this->post("/r/{$comment->commentable->subPage->name}/{$comment->commentable->id}/comments/$comment->id/upvote");
         $this->assertEquals(0, $comment->score());
     }
 
@@ -166,13 +158,11 @@ class VotesTest extends TestCase
         $this->withoutExceptionHandling();
 
         $user = User::factory()->create();
-        $subPage = SubPage::factory()->create();
-        $post = Post::factory()->create();
         $comment = Comment::factory()->create();
 
         $this->actingAs($user);
 
-        $this->post("/r/$subPage->name/$post->id/comments/$comment->id/downvote");
+        $this->post("/r/{$comment->commentable->subPage->name}/{$comment->commentable->id}/comments/$comment->id/downvote");
 
         $this->assertEquals(-1, $comment->score());
     }
@@ -183,17 +173,15 @@ class VotesTest extends TestCase
         $this->withoutExceptionHandling();
 
         $user = User::factory()->create();
-        $subPage = SubPage::factory()->create();
-        $post = Post::factory()->create();
         $comment = Comment::factory()->create();
 
         $this->actingAs($user);
 
-        $this->post("/r/$subPage->name/$post->id/comments/$comment->id/downvote");
+        $this->post("/r/{$comment->commentable->subPage->name}/{$comment->commentable->id}/comments/$comment->id/downvote");
 
         $this->assertEquals(-1, $comment->score());
 
-        $this->post("/r/$subPage->name/$post->id/comments/$comment->id/downvote");
+        $this->post("/r/{$comment->commentable->subPage->name}/{$comment->commentable->id}/comments/$comment->id/downvote");
         $this->assertEquals(0, $comment->score());
     }
 
@@ -203,17 +191,15 @@ class VotesTest extends TestCase
         $this->withoutExceptionHandling();
 
         $user = User::factory()->create();
-        $subPage = SubPage::factory()->create();
-        $post = Post::factory()->create();
         $comment = Comment::factory()->create();
 
         $this->actingAs($user);
 
-        $this->post("/r/$subPage->name/$post->id/comments/$comment->id/upvote");
+        $this->post("/r/{$comment->commentable->subPage->name}/{$comment->commentable->id}/comments/$comment->id/upvote");
 
         $this->assertEquals(1, $comment->score());
 
-        $this->post("/r/$subPage->name/$post->id/comments/$comment->id/downvote");
+        $this->post("/r/{$comment->commentable->subPage->name}/{$comment->commentable->id}/comments/$comment->id/downvote");
         $this->assertEquals(-1, $comment->score());
     }
 
@@ -223,17 +209,15 @@ class VotesTest extends TestCase
         $this->withoutExceptionHandling();
 
         $user = User::factory()->create();
-        $subPage = SubPage::factory()->create();
-        $post = Post::factory()->create();
         $comment = Comment::factory()->create();
 
         $this->actingAs($user);
 
-        $this->post("/r/$subPage->name/$post->id/comments/$comment->id/downvote");
+        $this->post("/r/{$comment->commentable->subPage->name}/{$comment->commentable->id}/comments/$comment->id/downvote");
 
         $this->assertEquals(-1, $comment->score());
 
-        $this->post("/r/$subPage->name/$post->id/comments/$comment->id/upvote");
+        $this->post("/r/{$comment->commentable->subPage->name}/{$comment->commentable->id}/comments/$comment->id/upvote");
         $this->assertEquals(1, $comment->score());
     }
 

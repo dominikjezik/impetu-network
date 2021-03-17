@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -46,7 +47,7 @@ class SubPage extends Model
     /**
      * Posts ordered by created_at
      *
-     * @return HasMany
+     * @return Collection
      */
     public function getLatestPostsAttribute()
     {
