@@ -123,7 +123,66 @@
                 height: 1.3rem;
             }
         }
+        .right-side {
+            flex: 1;
+            display: flex;
+            justify-content: end;
+            position: relative;
+        }
+        .item-three-dots {
+            height: 2.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            &::after {
+                content: '...';
+                color: #515151;
+                font-size: 3rem;
+                transform: translateY(-.8rem);
+            }
+        }
 
+    }
+
+    .context-menu {
+        top: 100%;
+        right: 0;
+        position: absolute;
+        display: block;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        background: #fff;
+        border: 1px solid #cfcfcf;
+
+        li a,
+        li button{
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            padding: .75rem 1rem;
+            font-size: 1rem;
+            background: #fff;
+            border: none;
+            text-decoration: none;
+            color: #515151;
+            font-weight: bold;
+
+            &:hover {
+                background: #d9d9d9;
+                cursor: pointer;
+            }
+        }
+
+        li svg {
+            width: 1.2rem;
+            height: 1.2rem;
+            margin-right: .75rem;
+
+            path, polygon {
+                fill: #515151
+            }
+        }
     }
 
     .content {

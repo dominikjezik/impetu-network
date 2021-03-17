@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePostRequest;
 use App\Models\Post;
 use App\Models\SubPage;
+use Exception;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -15,9 +18,10 @@ class PostsController extends Controller
     /**
      * Show the form for creating a new post.
      *
+     * @param SubPage $subPage
      * @return Response
      */
-    public function create(?SubPage $subPage)
+    public function create(SubPage $subPage)
     {
         $parms = [
             'list_of_communities' => auth()->user()->getTitlesOfJoinedCommunities
@@ -49,6 +53,7 @@ class PostsController extends Controller
     /**
      * Display the specified post.
      *
+     * @param SubPage $subPage
      * @param Post $post
      * @return Response
      */
@@ -85,13 +90,17 @@ class PostsController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified post from storage.
      *
+     * @param SubPage $subPage
      * @param Post $post
-     * @return \Illuminate\Http\Response
+     * @return Application|RedirectResponse|Redirector
+     * @throws Exception
      */
-    public function destroy(Post $post)
+    public function destroy(SubPage $subPage,Post $post)
     {
-        //
+        $this->authorize('delete', $post);
+        $post->delete();
+        return redirect($subPage->path());
     }
 }

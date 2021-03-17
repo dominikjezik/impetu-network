@@ -44,6 +44,42 @@
             </svg>
             <span>Save</span>
         </button>
+        <div class="right-side">
+            <button class="item item-three-dots" @click.prevent="switchContextMenu" :id="`btn-context-menu-${post.id}`"></button>
+            <ul class="context-menu" v-if="isContextMenuOpened">
+                <li>
+                    <a href="#">
+                        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                             viewBox="0 0 512.001 512.001" style="enable-background:new 0 0 512.001 512.001;" xml:space="preserve">
+                                <g>
+                                    <path d="M496.063,62.299l-46.396-46.4c-21.2-21.199-55.69-21.198-76.888,0l-18.16,18.161l123.284,123.294l18.16-18.161
+                                        C517.311,117.944,517.314,83.55,496.063,62.299z"/>
+                                </g>
+                                <g>
+                                    <path d="M22.012,376.747L0.251,494.268c-0.899,4.857,0.649,9.846,4.142,13.339c3.497,3.497,8.487,5.042,13.338,4.143
+                                        l117.512-21.763L22.012,376.747z"/>
+                                </g>
+                                <g>
+                                    <polygon points="333.407,55.274 38.198,350.506 161.482,473.799 456.691,178.568 		"/>
+                                </g>
+                        </svg>
+                        Edit
+                    </a>
+                </li>
+                <li v-if="post.can.delete_post">
+                    <inertia-link method="delete" :href="`/r/${post.sub_page_name}/${post.id}`">
+                        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                             viewBox="0 0 512.001 512.001" style="enable-background:new 0 0 512.001 512.001;" xml:space="preserve">
+                            <path d="M294.111,256.001L504.109,46.003c10.523-10.524,10.523-27.586,0-38.109c-10.524-10.524-27.587-10.524-38.11,0L256,217.892
+                                L46.002,7.894c-10.524-10.524-27.586-10.524-38.109,0s-10.524,27.586,0,38.109l209.998,209.998L7.893,465.999
+                                c-10.524,10.524-10.524,27.586,0,38.109c10.524,10.524,27.586,10.523,38.109,0L256,294.11l209.997,209.998
+                                c10.524,10.524,27.587,10.523,38.11,0c10.523-10.524,10.523-27.586,0-38.109L294.111,256.001z"/>
+                        </svg>
+                        Delete
+                    </inertia-link>
+                </li>
+            </ul>
+        </div>
     </div>
 </template>
 
@@ -61,10 +97,25 @@ export default {
         },
         disableCommentButton: Boolean
     },
+    data() {
+        return {
+            isContextMenuOpened: false
+        }
+    },
     methods: {
+        switchContextMenu() {
+            this.isContextMenuOpened = !this.isContextMenuOpened
+        },
         savePost() {
 
         }
+    },
+    mounted() {
+        document.addEventListener('click', (e) => {
+            if(e.originalTarget.id !== `btn-context-menu-${this.post.id}`){
+                this.isContextMenuOpened = false
+            }
+        })
     }
 }
 </script>

@@ -14,7 +14,7 @@ class Post extends Model
     use HasFactory, Voteable;
 
     protected $guarded = [];
-    protected $appends = ['post_author', 'sub_page_name', 'score', 'voted_by_user', 'comment_count', 'comments_list'];
+    protected $appends = ['post_author', 'sub_page_name', 'score', 'voted_by_user', 'comment_count', 'comments_list', 'can'];
 
     /**
      * Relationship to author.
@@ -62,6 +62,13 @@ class Post extends Model
     public function getCommentCountAttribute()
     {
         return $this->comments()->count(); // Vráti len "prvé" komentáre nie vnorené
+    }
+
+    public function getCanAttribute()
+    {
+        return [
+            'delete_post' => auth()->user()->can('delete', $this)
+        ];
     }
 
 }

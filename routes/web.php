@@ -35,32 +35,45 @@ Route::prefix('/r/{subPage}')->group( function() {
     // Index Sub page
     Route::get('/', [SubPagesController::class, 'show']);
 
-    // Join/Leave sub page.
-    Route::post('/join', [SubPageJoinsController::class, 'store']);
-    Route::post('/leave', [SubPageLeavesController::class, 'store']);
+    Route::middleware('auth')->group(function() {
 
-    // Publish new post form
-    Route::get('/publish', [PostsController::class, 'create']);
+        // Publish new post form
+        Route::get('/publish', [PostsController::class, 'create']);
 
-    // Publish new post
-    Route::post('/posts', [PostsController::class, 'store'])->middleware('member');
+        // Publish new post
+        Route::post('/posts', [PostsController::class, 'store'])->middleware('member');
+
+        // Edit post form
+        // TODO: GET /{post}/edit
+
+        // Edit post
+        // TODO: PATCH /{post}
+
+        //Delete post
+        Route::delete('/{post}', [PostsController::class, 'destroy']);
+
+        // Join/Leave sub page.
+        Route::post('/join', [SubPageJoinsController::class, 'store']);
+        Route::post('/leave', [SubPageLeavesController::class, 'store']);
+
+        // Publish comment to post
+        Route::post('/{post}/comments', [CommentsController::class, 'store'])->middleware('member');
+
+        // Publish comment to comment
+        Route::post('/{post}/comments/{comment}', [CommentsController::class, 'store'])->middleware('member');
+
+        // Up and Down vote post
+        Route::post('/{post}/upvote', [VotesController::class, 'storePostUpvote']);
+        Route::post('/{post}/downvote', [VotesController::class, 'storePostDownvote']);
+
+        // Up and Down vote comment
+        Route::post('/{post}/comments/{comment}/upvote', [VotesController::class, 'storeCommentUpvote']);
+        Route::post('/{post}/comments/{comment}/downvote', [VotesController::class, 'storeCommentDownvote']);
+
+    });
 
     // Show post
     Route::get('/{post}', [PostsController::class, 'show']);
-
-    // Up and Down vote post
-    Route::post('/{post}/upvote', [VotesController::class, 'storePostUpvote'])->middleware('auth');
-    Route::post('/{post}/downvote', [VotesController::class, 'storePostDownvote'])->middleware('auth');
-
-    // Publish comment to post
-    Route::post('/{post}/comments', [CommentsController::class, 'store'])->middleware('member');
-
-    // Publish comment to comment
-    Route::post('/{post}/comments/{comment}', [CommentsController::class, 'store'])->middleware('member');
-
-    // Up and Down vote comment
-    Route::post('/{post}/comments/{comment}/upvote', [VotesController::class, 'storeCommentUpvote'])->middleware('auth');
-    Route::post('/{post}/comments/{comment}/downvote', [VotesController::class, 'storeCommentDownvote'])->middleware('auth');
 
 });
 
