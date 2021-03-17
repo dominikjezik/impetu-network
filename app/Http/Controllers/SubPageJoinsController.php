@@ -5,16 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\SubPage;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 
 class SubPageJoinsController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     /**
      * Adds a user from the Sub page members.
      *
@@ -31,4 +25,5 @@ class SubPageJoinsController extends Controller
 
         return redirect($subPage->path());
     }
+
 }

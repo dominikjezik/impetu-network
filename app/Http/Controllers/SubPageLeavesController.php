@@ -10,11 +10,6 @@ use Illuminate\Routing\Redirector;
 
 class SubPageLeavesController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     /**
      * Removes a user from the Sub page members.
      *
@@ -31,4 +26,5 @@ class SubPageLeavesController extends Controller
 
         return redirect($subPage->path());
     }
+
 }
