@@ -1,5 +1,5 @@
 <template>
-    <div :id="`editor-${specialId}`"></div>
+    <div :id="`editor-${specialId}`" v-html="defaultText"></div>
 </template>
 
 <script>
@@ -7,7 +7,8 @@ import Quill from 'quill';
 
 export default {
     props: {
-        specialId: String
+        specialId: Number,
+        defaultText: String,
     },
     data() {
         return {
@@ -16,7 +17,9 @@ export default {
     },
     methods: {
         clear() {
-            this.quill.setText('')
+            this.quill.setContents([
+                { insert: '' }
+            ])
         }
     },
     mounted() {

@@ -67,8 +67,14 @@ class Post extends Model
     public function getCanAttribute()
     {
         return [
-            'delete_post' => auth()->user()->can('delete', $this)
+            'delete_post' => auth()->user()->can('delete', $this),
+            'update_post' => auth()->user()->can('update', $this),
         ];
+    }
+
+    public function path(): string
+    {
+        return "/r/{$this->subPage->name}/{$this->id}";
     }
 
 }

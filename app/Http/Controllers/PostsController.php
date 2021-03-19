@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
 use App\Models\SubPage;
 use Exception;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -67,26 +69,35 @@ class PostsController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified post.
      *
+     * @param SubPage $subPage
      * @param Post $post
-     * @return \Illuminate\Http\Response
+     * @return Response
+     * @throws AuthorizationException
      */
-    public function edit(Post $post)
+    public function edit(SubPage $subPage, Post $post)
     {
-        //
+        $this->authorize('update', $post);
+        abort_if($post->subPage->isNot($subPage), 404);
+
+        return Inertia::render('Posts/Edit', [
+            'post' => $post
+        ]);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified post in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param UpdatePostRequest $request
+     * @param SubPage $subPage
      * @param Post $post
-     * @return \Illuminate\Http\Response
+     * @return Application|RedirectResponse|Redirector
      */
-    public function update(Request $request, Post $post)
+    public function update(UpdatePostRequest $request, SubPage $subPage, Post $post)
     {
-        //
+        $post->update($request->validated());
+        return redirect($post->path());
     }
 
     /**

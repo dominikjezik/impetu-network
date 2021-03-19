@@ -45,10 +45,10 @@
             <span>Save</span>
         </button>
         <div class="right-side">
-            <button class="item item-three-dots" @click.prevent="switchContextMenu" :id="`btn-context-menu-${post.id}`"></button>
+            <button class="item item-three-dots" @click.prevent="switchContextMenu" :id="`btn-context-menu-${post.id}`" v-if="hasAtleastOneItem"></button>
             <ul class="context-menu" v-if="isContextMenuOpened">
-                <li>
-                    <a href="#">
+                <li v-if="post.can.update_post">
+                    <inertia-link :href="`/r/${post.sub_page_name}/${post.id}/edit`">
                         <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                              viewBox="0 0 512.001 512.001" style="enable-background:new 0 0 512.001 512.001;" xml:space="preserve">
                                 <g>
@@ -64,7 +64,7 @@
                                 </g>
                         </svg>
                         Edit
-                    </a>
+                    </inertia-link>
                 </li>
                 <li v-if="post.can.delete_post">
                     <inertia-link method="delete" :href="`/r/${post.sub_page_name}/${post.id}`">
@@ -100,6 +100,15 @@ export default {
     data() {
         return {
             isContextMenuOpened: false
+        }
+    },
+    computed: {
+        hasAtleastOneItem() {
+            for (const ability in this.post.can) {
+                if(this.post.can[ability])
+                    return true
+            }
+            return false
         }
     },
     methods: {

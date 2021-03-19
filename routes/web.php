@@ -44,10 +44,10 @@ Route::prefix('/r/{subPage}')->group( function() {
         Route::post('/posts', [PostsController::class, 'store'])->middleware('member');
 
         // Edit post form
-        // TODO: GET /{post}/edit
+        Route::get('/{post}/edit', [PostsController::class, 'edit']);
 
         // Edit post
-        // TODO: PATCH /{post}
+        Route::patch('/{post}', [PostsController::class, 'update']);
 
         //Delete post
         Route::delete('/{post}', [PostsController::class, 'destroy']);
