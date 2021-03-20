@@ -49,7 +49,7 @@ Route::prefix('/r/{subPage}')->group( function() {
         // Edit post
         Route::patch('/{post}', [PostsController::class, 'update']);
 
-        //Delete post
+        // Delete post
         Route::delete('/{post}', [PostsController::class, 'destroy']);
 
         // Join/Leave sub page.
@@ -61,6 +61,12 @@ Route::prefix('/r/{subPage}')->group( function() {
 
         // Publish comment to comment
         Route::post('/{post}/comments/{comment}', [CommentsController::class, 'store'])->middleware('member');
+
+        // Delete comment
+        Route::delete('/{post}/comments/{comment}', [CommentsController::class, 'destroy']);
+
+        // Edit comment
+        Route::patch('/{post}/comments/{comment}', [CommentsController::class, 'update']);
 
         // Up and Down vote post
         Route::post('/{post}/upvote', [VotesController::class, 'storePostUpvote']);

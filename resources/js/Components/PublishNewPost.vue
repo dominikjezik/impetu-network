@@ -12,7 +12,7 @@ export default {
     },
     computed: {
         authUser() {
-            return this.$page.props.authUser
+            return this.$page.props.user
         }
     },
     methods: {

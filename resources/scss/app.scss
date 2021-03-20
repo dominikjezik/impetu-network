@@ -167,6 +167,7 @@
             text-decoration: none;
             color: #515151;
             font-weight: bold;
+            width: 100%;
 
             &:hover {
                 background: #d9d9d9;
@@ -311,6 +312,29 @@
             }
             .comment-body {
                 margin: .2rem .2rem .2rem 2.8rem;
+
+                p, ul, ol {
+                    margin: 0;
+                    padding: 1rem;
+                }
+
+                blockquote {
+                    border-left: 4px solid #ccc;
+                    margin-bottom: 5px;
+                    margin-top: 5px;
+                    margin-left: 0;
+                    padding-left: 16px;
+                }
+
+                pre {
+                    white-space: pre-wrap;
+                    margin-bottom: 5px;
+                    margin-top: 5px;
+                    padding: 5px 10px;
+                    border-radius: 3px;
+                    background-color: #23241f;
+                    color: #f8f8f2;
+                }
             }
             .sub-comments {
                 margin-top: 1rem;
@@ -332,17 +356,43 @@
                     height: 1rem;
                 }
 
-                .comment-btn {
+                .item {
                     margin-left: 1rem;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
                     outline: none;
                     background: transparent;
                     border: none;
                     padding: .5rem .5rem .3rem;
                     cursor: pointer;
                     border-radius: .5rem;
+                    &:hover {
+                        background: #cfcfcf;
+                    }
+                }
+
+                .more {
+                    position: relative;
+                }
+
+                .context-menu  {
+                    right: auto;
+                    left: 0;
+
+                    li a {
+                        padding: 0.65rem .9rem;
+                        font-size: .8rem;
+                    }
+
+                    li svg {
+                        width: 1rem;
+                        height: 1rem;
+                    }
+                }
+
+                .comment-btn {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
                     svg {
                         width: 1rem;
                         height: 1rem;
@@ -353,14 +403,24 @@
                         }
                     }
 
-                    &:hover {
-                        background: #cfcfcf;
-                    }
 
                     span {
                         font-weight: bold;
                         color: #515151;
                         font-size: .8rem;
+                    }
+                }
+
+                .item-three-dots {
+                    height: 1.8rem;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    &::after {
+                        content: '...';
+                        color: #515151;
+                        font-size: 2.5rem;
+                        transform: translateY(-.8rem);
                     }
                 }
 

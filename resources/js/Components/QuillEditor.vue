@@ -7,7 +7,7 @@ import Quill from 'quill';
 
 export default {
     props: {
-        specialId: Number,
+        specialId: String,
         defaultText: String,
     },
     data() {
@@ -29,7 +29,7 @@ export default {
                 toolbar: [
                     ['bold', 'italic', 'underline', 'strike'],
                     ['blockquote', 'code-block'],
-                    [{ 'header': 1 }],
+                    // [{ 'header': 1 }],
                     [{ 'list': 'ordered'}, { 'list': 'bullet' }],
                     [{ 'script': 'sub'}, { 'script': 'super' }],
                     ['clean']

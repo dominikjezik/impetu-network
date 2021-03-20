@@ -40,7 +40,7 @@ export default {
             return this.$page.props.authUser
         },
         specialId() {
-            return this.commentedComment === undefined ? 0 : this.commentedComment.id
+            return this.commentedComment === undefined ? `0` : `${this.commentedComment.id}r`
         }
     },
     methods: {

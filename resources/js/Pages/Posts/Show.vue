@@ -8,7 +8,7 @@
                     <section class="comment-section">
                         <publish-new-comment @newComment="newComment" :endpoint="`/r/${this.post.sub_page_name}/${this.post.id}/comments`" />
                         <div class="comments">
-                            <comments-list :comments="comments" :post="post" />
+                            <comments-list :comments="comments" :post="post" @commentDeleted="deleteCommentFromUI" />
                         </div>
                     </section>
                 </div>
@@ -59,6 +59,12 @@ export default {
     methods: {
         newComment({newComment}) {
             this.comments.unshift(newComment)
+        },
+        deleteCommentFromUI({deletedComment}) {
+            const index = this.comments.indexOf(deletedComment);
+            if (index > -1) {
+                this.comments.splice(index, 1);
+            }
         }
     }
 }
