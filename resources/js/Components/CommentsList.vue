@@ -29,10 +29,10 @@
                 <span>Reply</span>
             </button>
             <div class="more">
-                <button class="item item-three-dots" @click.prevent="switchContextMenu(comment)" :id="`btn-context-menu-comment-${comment.id}`"></button>
+                <button class="item item-three-dots" @click.prevent="switchContextMenu(comment)" :id="`btn-context-menu-comment-${comment.id}`" v-if="hasAtleastOneItem(comment)"></button>
                 <ul class="context-menu" v-if="comment.isContextMenuOpened">
                     <li>
-                        <button @click="comment.isEditBoxOpened = !comment.isEditBoxOpened ">
+                        <button @click="comment.isEditBoxOpened = !comment.isEditBoxOpened" v-if="comment.can.update_comment">
                             <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                  viewBox="0 0 512.001 512.001" style="enable-background:new 0 0 512.001 512.001;" xml:space="preserve">
                                 <g>
@@ -50,9 +50,8 @@
                             Edit
                         </button>
                     </li>
-<!--                    v-if="post.can.delete_post"-->
                     <li>
-                        <button @click.prevent="deleteComment(comment, comments)">
+                        <button @click.prevent="deleteComment(comment, comments)" v-if="comment.can.delete_comment">
                             <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                  viewBox="0 0 512.001 512.001" style="enable-background:new 0 0 512.001 512.001;" xml:space="preserve">
                             <path d="M294.111,256.001L504.109,46.003c10.523-10.524,10.523-27.586,0-38.109c-10.524-10.524-27.587-10.524-38.11,0L256,217.892
@@ -146,6 +145,13 @@ export default {
                     }
                 })
                 .catch(err => console.log(err))
+        },
+        hasAtleastOneItem(comment) {
+            for (const ability in comment.can) {
+                if(comment.can[ability])
+                    return true
+            }
+            return false
         }
     },
     mounted() {

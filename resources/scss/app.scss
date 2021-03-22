@@ -313,9 +313,13 @@
             .comment-body {
                 margin: .2rem .2rem .2rem 2.8rem;
 
-                p, ul, ol {
+                p {
                     margin: 0;
-                    padding: 1rem;
+                    padding: 0;
+                }
+                ul, ol {
+                    margin: 0;
+                    padding-left: 1rem;
                 }
 
                 blockquote {

@@ -11,7 +11,7 @@ class Comment extends Model
     use HasFactory, Voteable;
 
     protected $guarded = [];
-    protected $appends = ['comments_list', 'comment_author', 'score', 'voted_by_user'];
+    protected $appends = ['comments_list', 'comment_author', 'score', 'voted_by_user', 'can'];
 
     public function getCreatedAtAttribute($date)
     {
@@ -41,6 +41,14 @@ class Comment extends Model
     public function getCommentAuthorAttribute()
     {
         return $this->author()->select(['id', 'name'])->first();
+    }
+
+    public function getCanAttribute()
+    {
+        return [
+            'delete_comment' => auth()->user()->can('delete', $this),
+            'update_comment' => auth()->user()->can('update', $this),
+        ];
     }
 
 }
