@@ -14,17 +14,13 @@
                        @keydown="reset('title')" :class="{ 'input-error' : $page.props.errors.title  }">
 
                 <div class="error-msg" v-if="$page.props.errors.body">{{ $page.props.errors.body }}</div>
-<!--                <textarea name="body" id=""-->
-<!--                      cols="30" rows="10" class="input" placeholder="Body"-->
-<!--                      v-model="form.body" @keydown="reset('body')"-->
-<!--                      :class="{ 'input-error' : $page.props.errors.body  }"-->
-<!--                ></textarea>-->
                 <div class="quill-container-post">
                     <quill-editor ref="body" />
                 </div>
 
                 <button type="submit" class="btn-primary" @click.prevent="submit">Publish</button>
             </form>
+            <section class="meta"></section>
         </div>
     </master-layout>
 </template>
