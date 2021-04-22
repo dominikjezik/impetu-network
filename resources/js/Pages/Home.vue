@@ -9,18 +9,18 @@
                 </div>
             </div>
             <section class="meta">
-                <div class="meta-item basic-informations">
-                    <div class="header">Informations</div>
-                    <div class="content">
-                        <p class="description">lorem ipsum</p>
-                        <div class="members">
-                            <div class="item">
-                                <span class="number">X</span>
-                                <span class="label">Members</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<!--                <div class="meta-item basic-informations">-->
+<!--                    <div class="header">Informations</div>-->
+<!--                    <div class="content">-->
+<!--                        <p class="description">lorem ipsum</p>-->
+<!--                        <div class="members">-->
+<!--                            <div class="item">-->
+<!--                                <span class="number">X</span>-->
+<!--                                <span class="label">Members</span>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
             </section>
         </div>
     </master-layout>
