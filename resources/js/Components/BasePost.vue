@@ -122,9 +122,11 @@ export default {
     mounted() {
         console.log(this.post);
         document.addEventListener('click', (e) => {
-            if(e.originalTarget.id !== `btn-context-menu-${this.post.id}`){
-                this.isContextMenuOpened = false
-            }
+            try {
+                if(e.originalTarget.id !== `btn-context-menu-${this.post.id}`){
+                    this.isContextMenuOpened = false
+                }
+            } catch (e) { }
         })
     }
 }
