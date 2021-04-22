@@ -21,7 +21,7 @@ class SubPage extends Model
      *
      * @var string[]
      */
-    protected $appends = ['is_member', 'members_count', 'latest_posts'];
+    protected $appends = ['is_member', 'members_count']; // 'latest_posts'
 
 
     /**

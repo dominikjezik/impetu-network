@@ -3,6 +3,7 @@
 use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostsController;
+use App\Http\Controllers\SearchesController;
 use App\Http\Controllers\SubPageJoinsController;
 use App\Http\Controllers\SubPageLeavesController;
 use App\Http\Controllers\SubPagesController;
@@ -30,6 +31,11 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 // Publish new post form
 Route::get('/publish', [PostsController::class, 'create']);
 
+// Search page
+Route::get('/search', [SearchesController::class, 'index']);
+
+// Serach api
+Route::get('/api/search', [SearchesController::class, 'indexApi']);
 
 Route::prefix('/r/{subPage}')->group( function() {
     // Index Sub page

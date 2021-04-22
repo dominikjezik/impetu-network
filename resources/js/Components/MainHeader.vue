@@ -6,6 +6,8 @@
                 <span>Impetu network</span>
             </inertia-link>
         </div>
+
+        <primary-search-bar />
         <div class="options">
             <inertia-link href="/" class="user">
                 <img :src="this.$page.props.user.profile_photo_url" />
@@ -17,7 +19,11 @@
 </template>
 
 <script>
-export default {
+import PrimarySearchBar from "@/Components/PrimarySearchBar";
 
+export default {
+    components: {
+        PrimarySearchBar
+    }
 }
 </script>
