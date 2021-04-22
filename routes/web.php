@@ -37,6 +37,16 @@ Route::get('/search', [SearchesController::class, 'index']);
 // Serach api
 Route::get('/api/search', [SearchesController::class, 'indexApi']);
 
+
+Route::middleware('auth')->group(function() {
+    // Create new Sub page
+    Route::get('/create-community', [SubPagesController::class, 'create']);
+
+    // Store new Sub page
+    Route::post('/create-community', [SubPagesController::class, 'store']);
+
+});
+
 Route::prefix('/r/{subPage}')->group( function() {
     // Index Sub page
     Route::get('/', [SubPagesController::class, 'show']);

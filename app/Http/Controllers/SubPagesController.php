@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreSubPageRequest;
 use App\Models\Post;
 use App\Models\SubPage;
+use Exception;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -21,24 +26,25 @@ class SubPagesController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new Sub page.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
-        //
+        return Inertia::render('SubPage/Create');
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created Sub page in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param StoreSubPageRequest $request
+     * @return Application|RedirectResponse|Redirector
      */
-    public function store(Request $request)
+    public function store(StoreSubPageRequest $request)
     {
-        //
+        $subPage = SubPage::create($request->validated());
+        return redirect($subPage->path());
     }
 
     /**
@@ -49,6 +55,7 @@ class SubPagesController extends Controller
      */
     public function show(SubPage $subPage)
     {
+        $subPage->append('latest_posts');
         return Inertia::render('SubPage/Show', ['subpage' => $subPage]);
     }
 
