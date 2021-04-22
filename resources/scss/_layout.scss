@@ -47,6 +47,17 @@
         span {
             font-size: 1.75rem;
         }
+        a {
+            color: #000;
+            text-decoration: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        img {
+            width: 3rem;
+            margin-right: 1rem;
+        }
     }
 
     .user {
@@ -83,17 +94,22 @@
     left: 0;
     position: fixed;
     padding-top: 4rem;
-    width: 15rem;
+    width: 18rem;
     height: 100%;
 
     ul {
         list-style: none;
-        padding: 1rem;
+        padding: 1rem 2rem;
+
+        li {
+            margin-bottom: 1rem;
+        }
 
         a {
+            display: flex;
+            align-items: center;
             border-radius: 9999px;
-            padding: 1rem;
-            display: inline-block;
+            padding: .5rem 1rem;
             color: #000;
             text-decoration: none;
             width: 100%;
@@ -103,6 +119,26 @@
         a:hover {
             background: lighten($primary-color, 38);
             color: $primary-color;
+
+            svg path {
+                fill: $primary-color;
+            }
         }
+    }
+
+
+    svg {
+        width: 2rem;
+        margin-right: .75rem;
+    }
+
+    .create-community,
+    .create-post{
+        width: 1.8rem;
+    }
+
+    .saved {
+        width: 1.3rem;
+        margin: 0 1rem 0 .4rem;
     }
 }

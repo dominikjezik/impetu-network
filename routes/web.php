@@ -25,15 +25,18 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->name('dashboard');
 
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Publish new post form
 Route::get('/publish', [PostsController::class, 'create']);
 
-Route::prefix('/r/{subPage}')->group( function() {
 
+Route::prefix('/r/{subPage}')->group( function() {
     // Index Sub page
     Route::get('/', [SubPagesController::class, 'show']);
+
+    // Edit Sub page form
+    Route::get('/manage', [SubPagesController::class, 'edit']);
 
     Route::middleware('auth')->group(function() {
 

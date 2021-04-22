@@ -42,9 +42,6 @@ export default {
         SubPageHero,
         PublishedPost,
         PublishNewPost
-    },
-    mounted() {
-        console.log(this.subpage)
     }
 }
 </script>
