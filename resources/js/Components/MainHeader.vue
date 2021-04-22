@@ -1,10 +1,10 @@
 <template>
     <header class="main-header">
         <div class="logo">
-            <span>Impetu network</span>
-        </div>
-        <div class="search">
-            <input type="text" class="input" placeholder="Search Impetu">
+            <inertia-link href="/">
+                <img src="/img/logo.png" alt="">
+                <span>Impetu network</span>
+            </inertia-link>
         </div>
         <div class="options">
             <inertia-link href="/" class="user">
