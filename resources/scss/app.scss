@@ -690,10 +690,6 @@
             }
         }
     }
-
-
-
-
 }
 
 .box-danger-zone {
@@ -703,5 +699,85 @@
     h2 {
         margin-top: 0.5rem;
         color: #ff2727;
+    }
+}
+
+.auth-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+
+    a {
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    .auth-box {
+        width: 30rem;
+        background: #fff;
+        border: 1px solid #cfcfcf;
+        padding: 2rem;
+        border-radius: 1rem;
+
+        .logo {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .field {
+            margin-bottom: 1.25rem;
+            label {
+                display: inline-block;
+                padding-bottom: .25rem;
+            }
+            .input {
+                 width: 100%;
+            }
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+
+            label {
+                padding: 0;
+            }
+        }
+
+        .remember-me {
+            input {
+                margin-right: .25rem;
+            }
+        }
+
+        .field-btn {
+            margin-top: 1rem;
+            margin-bottom: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .create-account {
+                padding-left: 1rem;
+            }
+        }
+        .field-btn-register {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .error-msg{
+            margin-top: .5rem;
+        }
     }
 }

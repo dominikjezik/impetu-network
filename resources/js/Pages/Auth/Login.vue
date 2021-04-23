@@ -1,66 +1,50 @@
 <template>
-    <jet-authentication-card>
-        <template #logo>
-            <jet-authentication-card-logo />
-        </template>
-
-        <jet-validation-errors class="mb-4" />
-
-        <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
-            {{ status }}
-        </div>
-
-        <form @submit.prevent="submit">
-            <div>
-                <jet-label for="email" value="Email" />
-                <jet-input id="email" type="email" class="mt-1 block w-full" v-model="form.email" required autofocus />
+    <div class="auth-page">
+        <form class="auth-box" @submit.prevent="submit">
+            <div class="logo">
+                <img src="/img/logo.png" alt="">
+                <h1>Impetu Network</h1>
             </div>
 
-            <div class="mt-4">
-                <jet-label for="password" value="Password" />
-                <jet-input id="password" type="password" class="mt-1 block w-full" v-model="form.password" required autocomplete="current-password" />
+            <div class="field">
+                <label for="email">Email</label>
+                <input type="email" class="input" id="email" v-model="form.email" placeholder="john@example.com" required autofocus>
             </div>
 
-            <div class="block mt-4">
-                <label class="flex items-center">
-                    <jet-checkbox name="remember" v-model:checked="form.remember" />
-                    <span class="ml-2 text-sm text-gray-600">Remember me</span>
-                </label>
+            <div class="field">
+                <label for="password">Password</label>
+                <input type="password" class="input" id="password" v-model="form.password" placeholder="********" required>
             </div>
 
-            <div class="flex items-center justify-end mt-4">
+            <div class="row">
+                <div class="remember-me">
+                    <label>
+                        <input type="checkbox" name="remember" v-model:checked="form.remember">
+                        <span>Remember me</span>
+                    </label>
+                </div>
+
                 <inertia-link v-if="canResetPassword" :href="route('password.request')" class="underline text-sm text-gray-600 hover:text-gray-900">
                     Forgot your password?
                 </inertia-link>
-
-                <jet-button class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Log in
-                </jet-button>
             </div>
+
+            <div class="error-msg" v-if="$page.props.errors.email">{{ $page.props.errors.email }}</div>
+
+            <div class="field field-btn">
+                <button class="btn-primary">Log in</button>
+                <span class="create-account">
+                    or
+                    <inertia-link :href="route('register')">Create an account</inertia-link>
+                </span>
+            </div>
+
         </form>
-    </jet-authentication-card>
+    </div>
 </template>
 
 <script>
-    import JetAuthenticationCard from '@/Jetstream/AuthenticationCard'
-    import JetAuthenticationCardLogo from '@/Jetstream/AuthenticationCardLogo'
-    import JetButton from '@/Jetstream/Button'
-    import JetInput from '@/Jetstream/Input'
-    import JetCheckbox from '@/Jetstream/Checkbox'
-    import JetLabel from '@/Jetstream/Label'
-    import JetValidationErrors from '@/Jetstream/ValidationErrors'
-
     export default {
-        components: {
-            JetAuthenticationCard,
-            JetAuthenticationCardLogo,
-            JetButton,
-            JetInput,
-            JetCheckbox,
-            JetLabel,
-            JetValidationErrors
-        },
-
         props: {
             canResetPassword: Boolean,
             status: String
