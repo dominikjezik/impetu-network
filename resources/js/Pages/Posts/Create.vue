@@ -50,7 +50,7 @@ export default {
     methods: {
         submit() {
             this.form.body = this.$refs.body.quill.root.innerHTML
-            this.$inertia.post(`/r/${this.community}/posts`, this.form)
+            this.$inertia.post(route('posts.store', this.community), this.form)
         },
         reset(field) {
             delete this.$page.props.errors[field]

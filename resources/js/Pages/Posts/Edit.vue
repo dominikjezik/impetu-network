@@ -16,6 +16,7 @@
 
                 <button type="submit" class="btn-primary" @click.prevent="submit">Update</button>
             </form>
+            <section class="meta"></section>
         </div>
     </master-layout>
 </template>
@@ -43,7 +44,7 @@ export default {
     methods: {
         submit() {
             this.form.body = this.$refs.body.quill.root.innerHTML
-            this.$inertia.patch(`/r/${this.post.sub_page.name}/${this.post.id}`, this.form)
+            this.$inertia.patch(route('posts.update', [this.post.sub_page.name, this.post.id]), this.form)
         },
         reset(field) {
             delete this.$page.props.errors[field]

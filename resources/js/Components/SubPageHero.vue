@@ -7,7 +7,7 @@
                 <h1 class="title">{{ subpage.title }}</h1>
                 <span class="name">r/{{ subpage.name }}</span>
             </div>
-            <inertia-link :href="`/r/${ subpage.name }/manage`" class="btn-primary btn-manage">Manage</inertia-link>
+            <inertia-link :href="route('subpages.edit', subpage.name)" class="btn-primary btn-manage" v-if="subpage.can.manage_sub_page">Manage</inertia-link>
             <button class="btn-primary btn-join" :class="{ 'btn-outline': subpage.is_member }" @click.prevent="joinOrLeave">
                 {{ subpage.is_member ? "Leave" : "Join" }}
             </button>
@@ -23,9 +23,9 @@ export default {
     methods: {
         joinOrLeave() {
             if(this.subpage.is_member) {
-                this.$inertia.post(`/r/${this.subpage.name}/leave`,)
+                this.$inertia.post(route('subpages.leave', this.subpage.name))
             } else {
-                this.$inertia.post(`/r/${this.subpage.name}/join`,)
+                this.$inertia.post(route('subpages.join', this.subpage.name))
             }
         }
     }

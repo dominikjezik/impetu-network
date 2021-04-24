@@ -18,9 +18,9 @@ export default {
     methods: {
         displayCreatePostForm() {
             if(this.subpageName !== undefined)
-                this.$inertia.get(`/r/${this.subpageName}/publish`)
+                this.$inertia.get(route('posts.create-specific', this.subpageName))
             else
-                this.$inertia.get(`/publish`)
+                this.$inertia.get(route('posts.create'))
         }
     }
 }

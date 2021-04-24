@@ -63,7 +63,7 @@ export default {
     },
     methods: {
         submit() {
-            this.$inertia.post(`/create-community`, this.form)
+            this.$inertia.post(route('subpages.store'), this.form)
         },
         reset(field) {
             delete this.$page.props.errors[field]
