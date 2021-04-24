@@ -28,10 +28,7 @@ export default {
             type: String,
             default: "Search Impetu"
         },
-        searchableEntity: {
-            type: String,
-            default: "communities"
-        }
+        filters: Object,
     },
     data() {
         return {
@@ -62,8 +59,8 @@ export default {
             this.$emit('loading', true)
             axios.get('/api/search', {
                 params: {
-                    q: this.query,
-                    entity: this.searchableEntity
+                    ...{ q: this.query },
+                    ...this.filters
                 }
             }).then(({data}) => {
                 this.$emit('loading', false)
