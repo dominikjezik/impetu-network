@@ -3,45 +3,32 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreSubPageRequest;
-use App\Models\Post;
+use App\Http\Requests\UpdateSubPageRequest;
 use App\Models\SubPage;
 use Exception;
-use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Routing\Redirector;
 use Inertia\Inertia;
 use Inertia\Response;
 
 class SubPagesController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
      * Show the form for creating a new Sub page.
      *
      * @return Response
      */
-    public function create()
+    public function create(): Response
     {
         return Inertia::render('SubPage/Create');
     }
 
     /**
-     * Store a newly created Sub page in storage.
+     * Store a newly created SubPage in database.
      *
      * @param StoreSubPageRequest $request
-     * @return Application|RedirectResponse|Redirector
+     * @return RedirectResponse
      */
-    public function store(StoreSubPageRequest $request)
+    public function store(StoreSubPageRequest $request): RedirectResponse
     {
         $subPage = SubPage::create($request->validated());
         return redirect($subPage->path());
@@ -53,43 +40,48 @@ class SubPagesController extends Controller
      * @param SubPage $subPage
      * @return Response
      */
-    public function show(SubPage $subPage)
+    public function show(SubPage $subPage): Response
     {
         $subPage->append('latest_posts');
         return Inertia::render('SubPage/Show', ['subpage' => $subPage]);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified SubPage.
      *
      * @param SubPage $subPage
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
-    public function edit(SubPage $subPage)
+    public function edit(SubPage $subPage): Response
     {
-        //
+        $subPage->append(['roles', 'can']);
+        return Inertia::render('SubPage/Edit', ['subpage' => $subPage]);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified SubPage in database.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param UpdateSubPageRequest $request
      * @param SubPage $subPage
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
      */
-    public function update(Request $request, SubPage $subPage)
+    public function update(UpdateSubPageRequest $request, SubPage $subPage): RedirectResponse
     {
-        //
+        $subPage->update($request->validated());
+        return back();
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified SubPage from datbase.
      *
      * @param SubPage $subPage
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
+     * @throws Exception
      */
-    public function destroy(SubPage $subPage)
+    public function destroy(SubPage $subPage): RedirectResponse
     {
-        //
+        $this->authorize('delete', $subPage);
+        $subPage->delete();
+        return redirect()->route('home');
     }
 }

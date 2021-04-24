@@ -6,24 +6,40 @@
                 <div class="manage-subpage-page">
                     <h2 class="manage-title">Manage <span>{{ subpage.name }}</span> community</h2>
 
-                    <form :action="`/r/${ subpage.name }/manage`" method="POST" class="box">
+                    <div class="box">
                         <h3>Basic information</h3>
 
                         <div class="field">
                             <label for="title">Title of Community</label>
-                            <input id="title" type="text" class="input" placeholder="Title of Community" :value="subpage.title">
+                            <input
+                                id="title" type="text"
+                                class="input" placeholder="Title of Community"
+                                v-model="updateForm.title"
+                                :disabled="!subpage.can.update_basic_information"
+                            >
                         </div>
 
                         <div class="field">
                             <label for="description">Description of Community</label>
-                            <textarea id="description" cols="30" rows="10" class="input" placeholder="Description of Community">{{ subpage.description }}</textarea>
+                            <textarea id="description"
+                                cols="30" rows="10"
+                                class="input" placeholder="Description of Community"
+                                v-model="updateForm.description"
+                                :disabled="!subpage.can.update_basic_information"
+                            ></textarea>
                         </div>
 
-                    </form>
+                        <button class="btn-primary-small"
+                            @click="updateInfo"
+                            v-if="subpage.can.update_basic_information"
+                        >Update</button>
+
+                    </div>
 
                     <div class="box">
                         <h3>Roles of Community</h3>
 
+                        <community-roles-form :roles="subpage.roles" :subpage="subpage" />
                     </div>
 
                     <div class="box">
@@ -34,28 +50,18 @@
 
                 </div>
 
+                <danger-zone :subpage="subpage" />
 
             </div>
-            <section class="meta">
-                <div class="meta-item basic-informations">
-                    <div class="header">Informations</div>
-                    <div class="content">
-                        <p class="description">{{ subpage.description }}</p>
-                        <div class="members">
-                            <div class="item">
-                                <span class="number">{{ subpage.members_count }}</span>
-                                <span class="label">Members</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            <section class="meta"></section>
         </div>
     </master-layout>
 </template>
 
 <script>
 import MasterLayout from "@/Layouts/MasterLayout";
+import DangerZone from "@/Components/DangerZone";
+import CommunityRolesForm from "@/Components/CommunityRolesForm";
 
 export default {
     props: {
@@ -63,9 +69,21 @@ export default {
     },
     components: {
         MasterLayout,
+        DangerZone,
+        CommunityRolesForm
     },
-    mounted() {
-        console.log(this.subpage)
+    data() {
+        return {
+            updateForm: {
+                title: this.subpage.title,
+                description: this.subpage.description
+            }
+        }
+    },
+    methods: {
+        updateInfo() {
+            this.$inertia.patch(route('subpages.udpate', this.subpage.name), this.updateForm)
+        }
     }
 }
 </script>

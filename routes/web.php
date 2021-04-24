@@ -3,6 +3,7 @@
 use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostsController;
+use App\Http\Controllers\RolesController;
 use App\Http\Controllers\SearchesController;
 use App\Http\Controllers\SubPageJoinsController;
 use App\Http\Controllers\SubPageLeavesController;
@@ -49,12 +50,29 @@ Route::middleware('auth')->group(function() {
 
 Route::prefix('/r/{subPage}')->group( function() {
     // Index Sub page
-    Route::get('/', [SubPagesController::class, 'show']);
-
-    // Edit Sub page form
-    Route::get('/manage', [SubPagesController::class, 'edit']);
+    Route::get('/', [SubPagesController::class, 'show'])->name('subpages.show');
 
     Route::middleware('auth')->group(function() {
+        // Delete Sub page
+        Route::delete('/', [SubPagesController::class, 'destroy'])->name('subpages.destroy');
+
+        Route::prefix('/manage')->group(function () {
+            // Edit SubPage form
+            Route::get('/', [SubPagesController::class, 'edit'])->middleware('role:moderator')->name('subpages.edit');
+
+            // Update SubPage
+            Route::patch('/', [SubPagesController::class, 'update'])->middleware('role:admin')->name('subpages.udpate');
+
+            // Store role for new user
+            Route::post('/manage/role', [RolesController::class, 'store'])->middleware('role:admin')->name('roles.store');
+
+            // Destroy user role
+            Route::delete('/api/manage/role', [RolesController::class, 'destroySomeoneElseRole'])->middleware('role:admin')->name('roles.destroySomeoneElseRole');
+
+            // Destroy user role - giveup
+            Route::delete('/manage/role-giveup', [RolesController::class, 'destroy'])->middleware('role:moderator')->name('roles.destroy');
+        });
+
 
         // Publish new post form
         Route::get('/publish', [PostsController::class, 'create'])->name('posts.create-specific');
