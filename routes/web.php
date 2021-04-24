@@ -28,9 +28,6 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-// Publish new post form
-Route::get('/publish', [PostsController::class, 'create']);
-
 // Search page
 Route::get('/search', [SearchesController::class, 'index']);
 
@@ -39,11 +36,14 @@ Route::get('/api/search', [SearchesController::class, 'indexApi']);
 
 
 Route::middleware('auth')->group(function() {
+    // Publish new post form
+    Route::get('/publish', [PostsController::class, 'create'])->name('posts.create');
+
     // Create new Sub page
-    Route::get('/create-community', [SubPagesController::class, 'create']);
+    Route::get('/create-community', [SubPagesController::class, 'create'])->name('subpages.create');
 
     // Store new Sub page
-    Route::post('/create-community', [SubPagesController::class, 'store']);
+    Route::post('/create-community', [SubPagesController::class, 'store'])->name('subpages.store');
 
 });
 
@@ -57,23 +57,23 @@ Route::prefix('/r/{subPage}')->group( function() {
     Route::middleware('auth')->group(function() {
 
         // Publish new post form
-        Route::get('/publish', [PostsController::class, 'create']);
+        Route::get('/publish', [PostsController::class, 'create'])->name('posts.create-specific');
 
         // Publish new post
-        Route::post('/posts', [PostsController::class, 'store'])->middleware('member');
+        Route::post('/posts', [PostsController::class, 'store'])->middleware('member')->name('posts.store');
 
         // Edit post form
-        Route::get('/{post}/edit', [PostsController::class, 'edit']);
+        Route::get('/{post}/edit', [PostsController::class, 'edit'])->name('posts.edit');
 
         // Edit post
-        Route::patch('/{post}', [PostsController::class, 'update']);
+        Route::patch('/{post}', [PostsController::class, 'update'])->name('posts.update');
 
         // Delete post
-        Route::delete('/{post}', [PostsController::class, 'destroy']);
+        Route::delete('/{post}', [PostsController::class, 'destroy'])->name('posts.destroy');
 
         // Join/Leave sub page.
-        Route::post('/join', [SubPageJoinsController::class, 'store']);
-        Route::post('/leave', [SubPageLeavesController::class, 'store']);
+        Route::post('/join', [SubPageJoinsController::class, 'store'])->name('subpages.join');
+        Route::post('/leave', [SubPageLeavesController::class, 'store'])->name('subpages.leave');
 
         // Publish comment to post
         Route::post('/{post}/comments', [CommentsController::class, 'store'])->middleware('member');
@@ -98,7 +98,7 @@ Route::prefix('/r/{subPage}')->group( function() {
     });
 
     // Show post
-    Route::get('/{post}', [PostsController::class, 'show']);
+    Route::get('/{post}', [PostsController::class, 'show'])->name('posts.show');
 
 });
 

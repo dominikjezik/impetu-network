@@ -1,5 +1,5 @@
 <template>
-    <inertia-link :href="`/r/${post.sub_page_name}/${post.id}`" class="published-post">
+    <inertia-link :href="route('posts.show', [ post.sub_page_name, post.id ])" class="published-post">
         <base-post :post="post" :display-subpage-name="displaySubpageName" />
     </inertia-link>
 </template>
