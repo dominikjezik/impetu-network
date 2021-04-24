@@ -8,20 +8,7 @@
                     <published-post :post="post" :display-subpage-name="true" />
                 </div>
             </div>
-            <section class="meta">
-<!--                <div class="meta-item basic-informations">-->
-<!--                    <div class="header">Informations</div>-->
-<!--                    <div class="content">-->
-<!--                        <p class="description">lorem ipsum</p>-->
-<!--                        <div class="members">-->
-<!--                            <div class="item">-->
-<!--                                <span class="number">X</span>-->
-<!--                                <span class="label">Members</span>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-            </section>
+            <section class="meta"></section>
         </div>
     </master-layout>
 </template>
@@ -39,9 +26,6 @@ export default {
     },
     props: {
         posts: Array
-    },
-    mounted() {
-        console.log(this.posts)
     }
 }
 </script>
