@@ -8,13 +8,14 @@ use App\Models\SubPage;
 use App\Models\User;
 use App\SearchFilters\Entity;
 use App\SearchFilters\Query;
+use App\SearchFilters\UsersFromCommunity;
 use Illuminate\Pipeline\Pipeline;
 
 class SearchesController extends Controller
 {
     private array $pipes = [
         Query::class,
-        Entity::class
+        Entity::class,
     ];
 
     public function index(Pipeline $pipeline)
@@ -23,9 +24,7 @@ class SearchesController extends Controller
             ->through($this->pipes)
             ->thenReturn();
 
-        $results = $builder->get()->each(fn($post) => $post->setAppends([]));
-
-        return $results;
+        return $builder->get()->each(fn($post) => $post->setAppends([]));
 
 //        $builder = $pipeline->send(Post::select(['id', 'title', 'body'])) //query()
 //            ->through($this->pipes)
@@ -38,26 +37,18 @@ class SearchesController extends Controller
 
     public function indexApi(SearchRequest $request, Pipeline $pipeline)
     {
-        //$model= $this->entities["users"];
-
-        //return $model::query()->get();
-
-//        if($request->validated()['entity']) {
-//
-//        }
-
         $builder = $pipeline->send(request()->get('entity')) //query()
             ->through($this->pipes)
             ->thenReturn();
 
         $results = $builder->get();//->each(fn($post) => $post->setAppends([]));
 
-        return response()->json(['data' => $results]);
+        if(request()->has('usersFrom')) {
+            $results = $results->filter(function($u) {
+                return $u->joinedCommunities()->where('name', request()->get('usersFrom'))->count() === 1;
+            });
+        }
 
-
-
-        $results = SubPage::whereLike(['name', 'title', 'description'], $request->validated()['q'])->get();
-        $results->each(fn($post) => $post->setAppends(['members_count']));
         return response()->json(['data' => $results]);
     }
 
