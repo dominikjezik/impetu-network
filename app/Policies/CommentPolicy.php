@@ -31,6 +31,8 @@ class CommentPolicy
      */
     public function delete(User $user, Comment $comment)
     {
+        if($comment->subPage->isAtLeast('moderator', $user))
+            return true;
         return $comment->author->is($user);
     }
 

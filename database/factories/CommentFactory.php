@@ -23,11 +23,13 @@ class CommentFactory extends Factory
      */
     public function definition()
     {
+        $post = Post::factory()->create();
         return [
             "body" => $this->faker->paragraph,
             "user_id" => User::factory()->create()->id,
             "commentable_type" => Post::class,
-            "commentable_id" => Post::factory()->create()->id
+            "commentable_id" => $post->id,
+            "sub_page_id" => $post->subPage->id
         ];
     }
 }

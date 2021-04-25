@@ -28,7 +28,8 @@ class CommentsController extends Controller
     {
         $newCommentBody = [
             'user_id' => auth()->id(),
-            'body' => clean($request->get('body'))
+            'body' => clean($request->get('body')),
+            'sub_page_id' => $subPage->id
         ];
 
         if(empty($comment->id)) {

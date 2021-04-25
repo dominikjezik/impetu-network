@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 
 class Comment extends Model
@@ -49,6 +50,11 @@ class Comment extends Model
             'delete_comment' => auth()->user()->can('delete', $this),
             'update_comment' => auth()->user()->can('update', $this),
         ];
+    }
+
+    public function subPage(): BelongsTo
+    {
+        return $this->belongsTo(SubPage::class);
     }
 
 }
