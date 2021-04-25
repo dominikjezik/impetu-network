@@ -31,7 +31,7 @@ class PostPolicy
      */
     public function delete(User $user, Post $post)
     {
-        if($post->subPage->isOwner($user))
+        if($post->subPage->isAtLeast('moderator', $user))
             return true;
         return $post->author->is($user);
     }

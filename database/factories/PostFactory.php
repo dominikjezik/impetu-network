@@ -27,7 +27,7 @@ class PostFactory extends Factory
             "title" => $this->faker->sentence,
             "body" => $this->faker->paragraph,
             "user_id" => User::factory()->create()->id,
-            "sub_page_id" => SubPage::factory()->create()->id
+            "sub_page_id" => SubPage::first() ?? SubPage::factory()->create()->id
         ];
     }
 }
