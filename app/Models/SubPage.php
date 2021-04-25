@@ -16,7 +16,10 @@ class SubPage extends Model
     protected static function booted()
     {
         static::created(function(SubPage $subPage) {
-             $subPage->setInitialOwner(auth()->user());
+            if(!auth()->check()) {
+                throw new \Exception("No owner assigned for new community.");
+            }
+            $subPage->setInitialOwner(auth()->user());
         });
     }
 
