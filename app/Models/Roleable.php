@@ -26,8 +26,14 @@ trait Roleable
     public function setInitialOwner(User $user): void
     {
         $this->joinMember($user);
+
+        $ownerRole = Role::where('type', 'owner')->first();
+        if(is_null($ownerRole)) {
+            throw new \Exception("The role owner does not exist in database.");
+        }
+
         $this->rolesRelationship()->attach([
-            'role_id' => Role::where('type', 'owner')->first()->id
+            'role_id' => $ownerRole->id
         ], [
             'user_id' => $user->id,
         ]);
@@ -35,6 +41,9 @@ trait Roleable
 
     public function tryToSetRole(string $role, User $user): void
     {
+        // Abort if user is not member of SubPage.
+        abort_if(!$this->isMember($user), 403);
+
         // Abort if user already has a role
         abort_if($this->hasAnyRole($user), 403);
 
