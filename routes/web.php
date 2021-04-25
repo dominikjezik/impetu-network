@@ -94,24 +94,24 @@ Route::prefix('/r/{subPage}')->group( function() {
         Route::post('/leave', [SubPageLeavesController::class, 'store'])->name('subpages.leave');
 
         // Publish comment to post
-        Route::post('/{post}/comments', [CommentsController::class, 'store'])->middleware('member');
+        Route::post('/{post}/comments', [CommentsController::class, 'store'])->middleware('member')->name('comments.post.store');
 
         // Publish comment to comment
-        Route::post('/{post}/comments/{comment}', [CommentsController::class, 'store'])->middleware('member');
+        Route::post('/{post}/comments/{comment}', [CommentsController::class, 'store'])->middleware('member')->name('comments.comment.store');
 
         // Delete comment
-        Route::delete('/{post}/comments/{comment}', [CommentsController::class, 'destroy']);
+        Route::delete('/{post}/comments/{comment}', [CommentsController::class, 'destroy'])->name('comments.destroy');
 
         // Edit comment
-        Route::patch('/{post}/comments/{comment}', [CommentsController::class, 'update']);
+        Route::patch('/{post}/comments/{comment}', [CommentsController::class, 'update'])->name('comments.update');
 
         // Up and Down vote post
-        Route::post('/{post}/upvote', [VotesController::class, 'storePostUpvote']);
-        Route::post('/{post}/downvote', [VotesController::class, 'storePostDownvote']);
+        Route::post('/{post}/upvote', [VotesController::class, 'storePostUpvote'])->name('posts.upvote');
+        Route::post('/{post}/downvote', [VotesController::class, 'storePostDownvote'])->name('posts.downvote');
 
         // Up and Down vote comment
-        Route::post('/{post}/comments/{comment}/upvote', [VotesController::class, 'storeCommentUpvote']);
-        Route::post('/{post}/comments/{comment}/downvote', [VotesController::class, 'storeCommentDownvote']);
+        Route::post('/{post}/comments/{comment}/upvote', [VotesController::class, 'storeCommentUpvote'])->name('comments.upvote');
+        Route::post('/{post}/comments/{comment}/downvote', [VotesController::class, 'storeCommentDownvote'])->name('comments.downvote');
 
     });
 
