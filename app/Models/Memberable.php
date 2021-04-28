@@ -36,6 +36,7 @@ trait Memberable {
     public function leaveMember(User $user): void
     {
         $this->members()->detach($user);
+        $this->removeRole($user);
     }
 
 

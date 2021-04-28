@@ -331,4 +331,23 @@ class RolesTest extends TestCase
         $this->assertTrue($subPage->isOwner(auth()->user()));
     }
 
+    /** @test */
+    public function if_user_with_role_leaves_sub_page_role_should_be_removed()
+    {
+        $this->actingAs(User::factory()->create());
+        $subPage = SubPage::factory()->create();
+
+        $admin = User::factory()->create();
+        $subPage->joinMember($admin);
+        $subPage->tryToSetRole('admin', $admin);
+
+        $this->actingAs($admin);
+
+        $this->assertTrue($subPage->isAdmin($admin));
+
+        $this->post(route('subpages.leave', $subPage));
+
+        $this->assertFalse($subPage->isAdmin($admin));
+    }
+
 }
