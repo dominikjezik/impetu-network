@@ -32,7 +32,7 @@
                 </inertia-link>
             </li>
           <li>
-                <inertia-link href="#saved" :class="{ 'selected': isSelected('saved') }">
+                <inertia-link :href="route('posts.saved.index')" :class="{ 'selected': isSelected('saved') }">
                     <svg class="saved" viewBox="0 0 69 90" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M68.9589 90H69V0H0V90H0.0405999L34.4998 52.8099L68.9589 90ZM5 77.291L30.8321 49.4116C31.7784 48.3904 33.1075 47.8099 34.4998 47.8099C35.892 47.8099 37.2211 48.3904 38.1674 49.4116L64 77.2915V5H5V77.291Z" fill="black"/></svg>
                     Saved
                 </inertia-link>

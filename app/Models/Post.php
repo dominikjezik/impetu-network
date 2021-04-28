@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Carbon;
@@ -14,7 +15,7 @@ class Post extends Model
     use HasFactory, Voteable;
 
     protected $guarded = [];
-    protected $appends = ['post_author', 'sub_page_name', 'score', 'voted_by_user', 'comment_count', 'comments_list', 'can'];
+    protected $appends = ['post_author', 'sub_page_name', 'score', 'voted_by_user', 'comment_count', 'comments_list', 'can', 'saved_by_user'];
 
     /**
      * Relationship to author.
@@ -75,6 +76,29 @@ class Post extends Model
     public function path(): string
     {
         return "/r/{$this->subPage->name}/{$this->id}";
+    }
+
+    public function savedByUsers(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'saved_posts');
+    }
+
+    public function saveForUser(User $user)
+    {
+        $this->savedByUsers()->syncWithoutDetaching([ 'user_id' => $user->id ]);
+    }
+
+    public function removeFromSaved(User $user)
+    {
+        $this->savedByUsers()->detach([ 'user_id' => $user->id ]);
+    }
+
+    public function getSavedByUserAttribute(): bool
+    {
+        if(auth()->guest()) {
+            return false;
+        }
+        return $this->savedByUsers()->where('user_id', auth()->user()->id)->count() > 0;
     }
 
 }

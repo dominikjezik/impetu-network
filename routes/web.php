@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PostSavesController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\SearchesController;
@@ -35,6 +36,8 @@ Route::get('/search', [SearchesController::class, 'index']);
 // Serach api
 Route::get('/api/search', [SearchesController::class, 'indexApi']);
 
+// All saved users
+Route::get('/saved', [PostSavesController::class, 'index'])->middleware('auth')->name('posts.saved.index');
 
 Route::middleware('auth')->group(function() {
     // Publish new post form
@@ -112,6 +115,12 @@ Route::prefix('/r/{subPage}')->group( function() {
         // Up and Down vote comment
         Route::post('/{post}/comments/{comment}/upvote', [VotesController::class, 'storeCommentUpvote'])->name('comments.upvote');
         Route::post('/{post}/comments/{comment}/downvote', [VotesController::class, 'storeCommentDownvote'])->name('comments.downvote');
+
+        // Save post
+        Route::post('/{post}/save', [PostSavesController::class, 'store'])->name('posts.save.store');
+
+        // Remove saved post
+        Route::delete('/{post}/save', [PostSavesController::class, 'destroy'])->name('posts.save.destroy');
 
     });
 
