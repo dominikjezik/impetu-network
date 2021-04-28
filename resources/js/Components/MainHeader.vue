@@ -8,10 +8,10 @@
         </div>
 
         <primary-search-bar />
-        <div class="options">
+        <div class="options" v-if="$page.props.user !== null">
             <inertia-link href="/" class="user">
-                <img :src="this.$page.props.user.profile_photo_url" />
-                <span>{{ this.$page.props.user.name }}</span>
+                <img :src="$page.props.user.profile_photo_url" />
+                <span>{{ $page.props.user.name }}</span>
             </inertia-link>
 
         </div>

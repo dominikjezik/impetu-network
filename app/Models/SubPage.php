@@ -75,10 +75,10 @@ class SubPage extends Model
     public function getCanAttribute()
     {
         return [
-            'delete_sub_page' => auth()->user()->can('delete', $this),
-            'change_owner_of_sub_page' => auth()->user()->can('changeOwner', $this),
-            'manage_sub_page' => auth()->user()->can('manage', $this),
-            'update_basic_information' => auth()->user()->can('update', $this)
+            'delete_sub_page' => auth()->check() ? auth()->user()->can('delete', $this) : false,
+            'change_owner_of_sub_page' => auth()->check() ? auth()->user()->can('changeOwner', $this) : false,
+            'manage_sub_page' => auth()->check() ? auth()->user()->can('manage', $this) : false,
+            'update_basic_information' => auth()->check() ? auth()->user()->can('update', $this) : false
         ];
     }
 

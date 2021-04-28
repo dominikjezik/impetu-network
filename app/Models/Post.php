@@ -67,8 +67,8 @@ class Post extends Model
     public function getCanAttribute()
     {
         return [
-            'delete_post' => auth()->user()->can('delete', $this),
-            'update_post' => auth()->user()->can('update', $this),
+            'delete_post' => auth()->check() ? auth()->user()->can('delete', $this) : false,
+            'update_post' => auth()->check() ? auth()->user()->can('update', $this) : false,
         ];
     }
 

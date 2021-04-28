@@ -5,7 +5,7 @@
             <div class="timeline">
                 <div class="published-post show-post">
                     <base-post :post="post" :disable-comment-button="true" />
-                    <section class="comment-section">
+                    <section class="comment-section" v-if="$page.props.user !== null">
                         <publish-new-comment @newComment="newComment" :endpoint="`/r/${this.post.sub_page_name}/${this.post.id}/comments`" />
                         <div class="comments">
                             <comments-list :comments="comments" :post="post" @commentDeleted="deleteCommentFromUI" />
