@@ -124,6 +124,7 @@ export default {
                     user: this.selectedUser
                 })
                 this.cancelSelectedUser()
+                this.emitter.emit("notify", { type: "success", payload: "User successfully added!" });
             }).catch(err => {
                 console.log(err)
             })
@@ -146,6 +147,7 @@ export default {
                 user: user.id
             }).then(res => {
                 this.currentRoles = this.currentRoles.filter(i => i.user.id !== user.id)
+                this.emitter.emit("notify", { type: "success", payload: "Role has been successfully removed from the user." });
             }).catch(err => {
                 console.log(err)
             })
