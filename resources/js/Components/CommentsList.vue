@@ -128,7 +128,9 @@ export default {
                         // this.comments = this.comments.filter(cmnt => cmnt.id !== comment.id)
                     }
                 })
-                .catch(err => console.log(err))
+                .catch(err => {
+                    this.emitter.emit("notify", { type: "error", payload: "Oops! An error occurred." });
+                })
         },
         deleteCommentFromUI({deletedComment, originalComments}) {
             const index = originalComments.indexOf(deletedComment);
@@ -144,7 +146,9 @@ export default {
                         comment.isEditBoxOpened = false
                     }
                 })
-                .catch(err => console.log(err))
+                .catch(err => {
+                    this.emitter.emit("notify", { type: "error", payload: "Oops! An error occurred." });
+                })
         },
         hasAtleastOneItem(comment) {
             for (const ability in comment.can) {

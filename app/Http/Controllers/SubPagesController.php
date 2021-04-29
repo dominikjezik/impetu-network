@@ -31,7 +31,7 @@ class SubPagesController extends Controller
     public function store(StoreSubPageRequest $request): RedirectResponse
     {
         $subPage = SubPage::create($request->validated());
-        return redirect($subPage->path());
+        return redirect($subPage->path())->with("message", "Community created successfully!");
     }
 
     /**
@@ -68,7 +68,7 @@ class SubPagesController extends Controller
     public function update(UpdateSubPageRequest $request, SubPage $subPage): RedirectResponse
     {
         $subPage->update($request->validated());
-        return back();
+        return back()->with("message", "Community updated successfully!");
     }
 
     /**
@@ -82,6 +82,6 @@ class SubPagesController extends Controller
     {
         $this->authorize('delete', $subPage);
         $subPage->delete();
-        return redirect()->route('home');
+        return redirect()->route('home')->with("message", "Community deleted successfully!");
     }
 }

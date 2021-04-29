@@ -1,7 +1,7 @@
 <template>
     <form class="add-new">
         <div class="row row-start">
-            <img class="profile-img" :src="authUser.profile_photo_url" alt="">
+            <img class="profile-img" :src="$page.props.user.profile_photo_url" alt="">
 
             <div class="error-msg" v-if="$page.props.errors.body">{{ $page.props.errors.body }}</div>
             <div class="quill-container-comment">

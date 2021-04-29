@@ -617,7 +617,7 @@
                 svg {
                     width: 100%;
                     path {
-                        fill: #cf3131;
+                        fill: $negative-color;
                     }
                 }
             }
@@ -699,7 +699,7 @@
                 svg {
                     width: 100%;
                     path {
-                        fill: #cf3131;
+                        fill: $negative-color;
                     }
                 }
             }
@@ -707,7 +707,7 @@
                 width: 1.2rem;
                 height: 1.2rem;
                 svg path {
-                    fill: #3ab335;
+                    fill: $positive-color;
                 }
             }
         }
@@ -716,11 +716,11 @@
 
 .box-danger-zone {
     background: #ffeeee;
-    border: 1px solid #ff2727;
+    border: 1px solid $negative-color;
 
     h2 {
         margin-top: 0.5rem;
-        color: #ff2727;
+        color: $negative-color;
     }
 }
 

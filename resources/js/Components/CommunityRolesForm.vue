@@ -147,7 +147,7 @@ export default {
                 user: user.id
             }).then(res => {
                 this.currentRoles = this.currentRoles.filter(i => i.user.id !== user.id)
-                this.emitter.emit("notify", { type: "success", payload: "Role has been successfully removed from the user." });
+                this.emitter.emit("notify", { type: "success", payload: "Successfully removed!" });
             }).catch(err => {
                 console.log(err)
             })

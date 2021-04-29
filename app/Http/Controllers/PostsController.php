@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
@@ -49,7 +50,7 @@ class PostsController extends Controller
 
         $subPage->posts()->create($validated);
 
-        return redirect($subPage->path());
+        return redirect($subPage->path())->with("message", "Post created successfully!");
     }
 
     /**
@@ -97,7 +98,7 @@ class PostsController extends Controller
     public function update(UpdatePostRequest $request, SubPage $subPage, Post $post)
     {
         $post->update($request->validated());
-        return redirect($post->path());
+        return redirect($post->path())->with("message", "Post updated successfully!");
     }
 
     /**
@@ -112,6 +113,6 @@ class PostsController extends Controller
     {
         $this->authorize('delete', $post);
         $post->delete();
-        return redirect($subPage->path());
+        return redirect($subPage->path())->with("message", "Post deleted successfully!");
     }
 }

@@ -96,7 +96,7 @@ export default {
             axios.post(route('posts.save.store', [this.post.sub_page_name, this.post.id]))
                 .then(res => {
                     this.post.saved_by_user = true
-                    this.emitter.emit("notify", { type: "success", payload: "Post has been successfully saved!" });
+                    this.emitter.emit("notify", { type: "info", payload: "Post saved!" });
                 }).catch(err => {
                     this.emitter.emit("notify", { type: "error", payload: "Oops! An error occurred." });
                 })
@@ -105,7 +105,7 @@ export default {
             axios.delete(route('posts.save.destroy', [this.post.sub_page_name, this.post.id]))
                 .then(res => {
                     this.post.saved_by_user = false
-                    this.emitter.emit("notify", { type: "success", payload: "Post has been successfully removed from saved posts!" });
+                    this.emitter.emit("notify", { type: "info", payload: "The post has been removed from the saved!" });
                 }).catch(err => {
                     this.emitter.emit("notify", { type: "error", payload: "Oops! An error occurred." });
                 })
