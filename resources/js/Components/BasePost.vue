@@ -115,7 +115,6 @@ export default {
         }
     },
     mounted() {
-        console.log(this.post);
         document.addEventListener('click', (e) => {
             try {
                 if(e.originalTarget.id !== `btn-context-menu-${this.post.id}`){

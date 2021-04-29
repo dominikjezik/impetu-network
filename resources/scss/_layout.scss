@@ -66,12 +66,25 @@
         }
     }
 
+    .options {
+        position: relative;
+        .context-menu {
+            width: 100%;
+            li a {
+                font-weight: normal;
+            }
+        }
+    }
+
     .user {
         display: flex;
         justify-content: center;
         align-items: center;
         text-decoration: none;
         color: #000;
+        background: none;
+        border: none;
+        cursor: pointer;
         padding: .5rem;
         border-radius: .5rem;
 

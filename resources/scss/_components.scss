@@ -322,3 +322,48 @@
         }
     }
 }
+
+// Context menu
+.context-menu {
+    top: 100%;
+    right: 0;
+    position: absolute;
+    display: block;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background: #fff;
+    border: 1px solid #cfcfcf;
+    border-radius: .5rem;
+    overflow: hidden;
+
+    li a,
+    li button{
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        padding: .75rem 1rem;
+        font-size: 1rem;
+        background: #fff;
+        border: none;
+        text-decoration: none;
+        color: #515151;
+        font-weight: bold;
+        width: 100%;
+
+        &:hover {
+            background: #d9d9d9;
+            cursor: pointer;
+        }
+    }
+
+    li svg {
+        width: 1.2rem;
+        height: 1.2rem;
+        margin-right: .75rem;
+
+        path, polygon {
+            fill: #515151
+        }
+    }
+}

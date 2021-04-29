@@ -27,16 +27,6 @@ export default {
         return {
             showingNavigationDropdown: false
         }
-    },
-
-    methods: {
-        logout() {
-            this.$inertia.post(route('logout'));
-        },
-    },
+    }
 }
 </script>
-
-<style>
-
-</style>
