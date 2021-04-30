@@ -35,7 +35,7 @@ export default {
                 if (index !== -1) {
                     this.notifications.splice(index, 1);
                 }
-            }, 100000)
+            }, 4000)
 
         }
     },
