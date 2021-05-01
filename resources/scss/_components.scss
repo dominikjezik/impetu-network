@@ -23,6 +23,12 @@
     padding: .3rem 1.5rem;
 }
 
+.btn-outline-small {
+    @extend .btn-outline;
+    font-size: .9rem;
+    padding: .3rem 1.5rem;
+}
+
 .btn-danger-small {
     @extend .btn-primary;
     font-size: .9rem;

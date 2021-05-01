@@ -28,7 +28,7 @@ class SubPage extends Model
      *
      * @var string[]
      */
-    protected $appends = ['is_member', 'members_count', 'can']; // 'latest_posts'
+    protected $appends = ['is_member', 'members_count', 'can', 'photo_url']; // 'latest_posts'
 
 
     /**
@@ -78,10 +78,59 @@ class SubPage extends Model
             'delete_sub_page' => auth()->check() ? auth()->user()->can('delete', $this) : false,
             'change_owner_of_sub_page' => auth()->check() ? auth()->user()->can('changeOwner', $this) : false,
             'manage_sub_page' => auth()->check() ? auth()->user()->can('manage', $this) : false,
-            'update_basic_information' => auth()->check() ? auth()->user()->can('update', $this) : false
+            'update_basic_information' => auth()->check() ? auth()->user()->can('update', $this) : false,
+            'update_appearance' => auth()->check() ? auth()->user()->can('update', $this) : false,
         ];
     }
 
+    public function media()
+    {
+        return $this->morphMany(Media::class, 'mediable');
+    }
+
+    public function attachNewPhoto(string $path)
+    {
+         $this->media()->create([
+            'path' => $path,
+            'type' => 'photo'
+        ]);
+    }
+
+    public function attachNewBanner(string $path)
+    {
+        $this->media()->create([
+            'path' => $path,
+            'type' => 'photo_banner'
+        ]);
+    }
+
+    public function photo()
+    {
+        return $this->media()->where('type', 'photo');
+    }
+
+    public function banner()
+    {
+        return $this->media()->where('type', 'photo_banner');
+    }
+
+    public function getPhotoUrlAttribute(): ?string
+    {
+        $media = $this->photo->first();
+        if(is_null($media)) {
+            return null;
+        }
+        return "/media/{$media->path}";
+    }
+
+    public function getBannerUrlAttribute()
+    {
+        $media = $this->banner->first();
+        if(is_null($media)) {
+            return null;
+        }
+        return "/media/{$media->path}";
+    }
 
 
 

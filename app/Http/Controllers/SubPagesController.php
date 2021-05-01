@@ -42,7 +42,7 @@ class SubPagesController extends Controller
      */
     public function show(SubPage $subPage): Response
     {
-        $subPage->append('latest_posts');
+        $subPage->append(['latest_posts', 'banner_url']);
         return Inertia::render('SubPage/Show', ['subpage' => $subPage]);
     }
 
@@ -54,7 +54,7 @@ class SubPagesController extends Controller
      */
     public function edit(SubPage $subPage): Response
     {
-        $subPage->append(['roles', 'can']);
+        $subPage->append(['roles', 'can', 'banner_url']);
         return Inertia::render('SubPage/Edit', ['subpage' => $subPage]);
     }
 

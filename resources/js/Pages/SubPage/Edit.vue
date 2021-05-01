@@ -42,11 +42,11 @@
                         <community-roles-form :roles="subpage.roles" :subpage="subpage" />
                     </div>
 
-                    <div class="box">
+                    <div class="box" v-if="subpage.can.update_appearance">
                         <h3>Appearance</h3>
-                        photo & banner
-                    </div>
 
+                        <appearance-form :subpage="subpage" />
+                    </div>
 
                 </div>
 
@@ -62,6 +62,7 @@
 import MasterLayout from "@/Layouts/MasterLayout";
 import DangerZone from "@/Components/DangerZone";
 import CommunityRolesForm from "@/Components/CommunityRolesForm";
+import AppearanceForm from "@/Components/AppearanceForm";
 
 export default {
     props: {
@@ -70,7 +71,8 @@ export default {
     components: {
         MasterLayout,
         DangerZone,
-        CommunityRolesForm
+        CommunityRolesForm,
+        AppearanceForm
     },
     data() {
         return {

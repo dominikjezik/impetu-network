@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SubPageMediaController;
 use App\Http\Controllers\PostSavesController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\RolesController;
@@ -67,14 +68,23 @@ Route::prefix('/r/{subPage}')->group( function() {
             Route::patch('/', [SubPagesController::class, 'update'])->middleware('role:admin')->name('subpages.udpate');
 
             // Store role for new user
-            Route::post('/manage/role', [RolesController::class, 'store'])->middleware('role:admin')->name('roles.store');
-
-            // Destroy user role
-            Route::delete('/api/manage/role', [RolesController::class, 'destroySomeoneElseRole'])->middleware('role:admin')->name('roles.destroySomeoneElseRole');
+            Route::post('/role', [RolesController::class, 'store'])->middleware('role:admin')->name('roles.store');
 
             // Destroy user role - giveup
-            Route::delete('/manage/role-giveup', [RolesController::class, 'destroy'])->middleware('role:moderator')->name('roles.destroy');
+            Route::delete('/role-giveup', [RolesController::class, 'destroy'])->middleware('role:moderator')->name('roles.destroy');
+
+            // Store community photo & banner
+            Route::post('/media', [SubPageMediaController::class, 'store'])->middleware('role:admin')->name('subpages.media.store');
+
+            // Destroy community photo
+            Route::delete('/photo', [SubPageMediaController::class, 'destroyPhoto'])->middleware('role:admin')->name('subpages.media.destroyPhoto');
+
+            // Destroy community banner
+            Route::delete('/banner', [SubPageMediaController::class, 'destroyBanner'])->middleware('role:admin')->name('subpages.media.destroyBanner');
         });
+
+        // Destroy user role
+        Route::delete('/api/manage/role', [RolesController::class, 'destroySomeoneElseRole'])->middleware('role:admin')->name('roles.destroySomeoneElseRole');
 
 
         // Publish new post form

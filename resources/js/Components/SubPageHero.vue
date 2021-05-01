@@ -1,8 +1,8 @@
 <template>
     <section class="subpage-hero">
-        <div class="cover"></div>
+        <div class="cover" :style="`background-image: url('${ subpage.banner_url }')`"></div>
         <div class="subpage-hero-footer">
-            <div class="logo"></div>
+            <img :src="subpage.photo_url === null ? `/img/logo.png` : subpage.photo_url" alt="" class="logo">
             <div class="text-holder">
                 <h1 class="title">{{ subpage.title }}</h1>
                 <span class="name">r/{{ subpage.name }}</span>
