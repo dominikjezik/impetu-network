@@ -15,11 +15,25 @@ class SubPage extends Model
 
     protected static function booted()
     {
+        parent::boot();
+
         static::created(function(SubPage $subPage) {
             if(!auth()->check()) {
                 throw new \Exception("No owner assigned for new community.");
             }
             $subPage->setInitialOwner(auth()->user());
+        });
+
+        static::deleting(function($subPage) {
+            $photo = $subPage->photo->first();
+            if(!is_null($photo)) {
+                $photo->delete();
+            }
+
+            $banner = $subPage->banner->first();
+            if(!is_null($banner)) {
+                $banner->delete();
+            }
         });
     }
 
