@@ -712,7 +712,18 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     height: 100%;
+
+    .status {
+        margin-top: 1rem;
+        width: 30rem;
+        background: #fff;
+        border: 1px solid #cfcfcf;
+        padding: 2rem;
+        border-radius: 1rem;
+        font-weight: bold;
+    }
 
     a {
         text-decoration: none;
@@ -720,6 +731,11 @@
         &:hover {
             text-decoration: underline;
         }
+    }
+
+    .description {
+        line-height: 1.5;
+        margin-bottom: 1rem;
     }
 
     .auth-box {

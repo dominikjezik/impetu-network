@@ -1,59 +1,41 @@
 <template>
-    <jet-authentication-card>
-        <template #logo>
-            <jet-authentication-card-logo />
-        </template>
-
-        <jet-validation-errors class="mb-4" />
-
-        <form @submit.prevent="submit">
-            <div>
-                <jet-label for="email" value="Email" />
-                <jet-input id="email" type="email" class="mt-1 block w-full" v-model="form.email" required autofocus />
+    <div class="auth-page">
+        <form class="auth-box" @submit.prevent="submit">
+            <div class="logo">
+                <img src="/img/logo.png" alt="">
+                <h1>Password reset</h1>
             </div>
 
-            <div class="mt-4">
-                <jet-label for="password" value="Password" />
-                <jet-input id="password" type="password" class="mt-1 block w-full" v-model="form.password" required autocomplete="new-password" />
+            <div class="field">
+                <label for="email">Email</label>
+                <input type="email" class="input" id="email" v-model="form.email" placeholder="john@example.com" required autofocus>
             </div>
 
-            <div class="mt-4">
-                <jet-label for="password_confirmation" value="Confirm Password" />
-                <jet-input id="password_confirmation" type="password" class="mt-1 block w-full" v-model="form.password_confirmation" required autocomplete="new-password" />
+            <div class="field">
+                <label for="password">Password</label>
+                <input type="password" class="input" id="password" v-model="form.password" placeholder="********" required>
+                <div class="error-msg" v-if="$page.props.errors.password">{{ $page.props.errors.password }}</div>
             </div>
 
-            <div class="flex items-center justify-end mt-4">
-                <jet-button :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Reset Password
-                </jet-button>
+            <div class="field">
+                <label for="password_confirmation">Confirm Password</label>
+                <input type="password" class="input" id="password_confirmation" v-model="form.password_confirmation" placeholder="********" required>
+                <div class="error-msg" v-if="$page.props.errors.password_confirmation">{{ $page.props.errors.password_confirmation }}</div>
+            </div>
+
+            <div class="field field-btn">
+                <button class="btn-primary">Reset Password</button>
             </div>
         </form>
-    </jet-authentication-card>
+    </div>
 </template>
 
 <script>
-    import JetAuthenticationCard from '@/Jetstream/AuthenticationCard'
-    import JetAuthenticationCardLogo from '@/Jetstream/AuthenticationCardLogo'
-    import JetButton from '@/Jetstream/Button'
-    import JetInput from '@/Jetstream/Input'
-    import JetLabel from '@/Jetstream/Label'
-    import JetValidationErrors from '@/Jetstream/ValidationErrors'
-
     export default {
-        components: {
-            JetAuthenticationCard,
-            JetAuthenticationCardLogo,
-            JetButton,
-            JetInput,
-            JetLabel,
-            JetValidationErrors
-        },
-
         props: {
             email: String,
             token: String,
         },
-
         data() {
             return {
                 form: this.$inertia.form({
@@ -64,7 +46,6 @@
                 })
             }
         },
-
         methods: {
             submit() {
                 this.form.post(this.route('password.update'), {
