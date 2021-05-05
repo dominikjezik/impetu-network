@@ -9,7 +9,7 @@
         <ul class="results" v-if="displayResults">
             <li class="result" v-for="item in items">
                 <inertia-link :href="`/r/${item.name}`">
-                    <img src="" alt="">
+                    <img :src="(item.photo_url === null || item.photo_url === undefined) ? '/img/logo.png' : item.photo_url" alt="">
                     <div class="info">
                         <h5 class="title">{{ item.title }}</h5>
                         <span class="members">{{ item.members_count }} member{{ item.members_count !== 1 ? 's' : '' }}</span>
