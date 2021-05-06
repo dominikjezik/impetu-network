@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Events\Commented;
+use App\Events\Voted;
+use App\Listeners\SendNewCommentNotification;
+use App\Listeners\SendNewVoteNotification;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -18,6 +22,12 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        Voted::class => [
+            SendNewVoteNotification::class
+        ],
+        Commented::class => [
+            SendNewCommentNotification::class
+        ]
     ];
 
     /**
