@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\Commented;
 use App\Http\Requests\StoreCommentRequest;
 use App\Http\Requests\UpdateCommentRequest;
 use App\Models\Comment;
@@ -34,8 +35,10 @@ class CommentsController extends Controller
 
         if(empty($comment->id)) {
             $newComment = $post->comments()->create($newCommentBody);
+            Commented::dispatch($post, auth()->user(), $newComment);
         } else {
             $newComment = $comment->comments()->create($newCommentBody);
+            Commented::dispatch($comment, auth()->user(), $newComment);
         }
 
         return $newComment;

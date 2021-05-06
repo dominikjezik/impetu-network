@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\SubPageMediaController;
 use App\Http\Controllers\PostSavesController;
 use App\Http\Controllers\PostsController;
@@ -49,6 +50,9 @@ Route::middleware('auth')->group(function() {
 
     // Store new Sub page
     Route::post('/create-community', [SubPagesController::class, 'store'])->name('subpages.store');
+
+    // Get user notifications
+    Route::get('/api/notifications', [NotificationsController::class, 'index'])->name('notifications.index');
 
 });
 

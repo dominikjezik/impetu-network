@@ -30,6 +30,13 @@ class SendNewVoteNotification
      */
     public function handle(Voted $event)
     {
+        switch(get_class($event->voteable)) {
+            case Post::class:
+                $event->voteable->author->notify(new NewPostVote($event));
+                break;
+            case Comment::class:
+                $event->voteable->author->notify(new NewCommentVote($event));
+                break;
         }
 
     }

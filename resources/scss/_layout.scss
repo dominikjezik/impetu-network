@@ -68,6 +68,24 @@
 
     .options {
         position: relative;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        width: 20rem;
+        .btn-notification {
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            padding: .5rem;
+            border-radius: .5rem;
+            margin-right: .5rem;
+            svg {
+                width: 1.5rem;
+            }
+            &:hover {
+                background: #e0f2ff;
+            }
+        }
         .context-menu {
             width: 100%;
             li a {

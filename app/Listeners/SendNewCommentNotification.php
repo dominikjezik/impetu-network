@@ -27,5 +27,6 @@ class SendNewCommentNotification
      */
     public function handle(Commented $event)
     {
+        $event->commentable->author->notify(new NewComment($event));
     }
 }
